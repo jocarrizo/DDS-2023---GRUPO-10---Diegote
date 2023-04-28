@@ -1,5 +1,6 @@
 package domain.main;
 
-public class Logger {
+public class Logger
+{
 
 }

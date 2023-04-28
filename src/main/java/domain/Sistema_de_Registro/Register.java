@@ -1,12 +1,15 @@
 package domain.Sistema_de_Registro;
 import java.util.Scanner;
 
-public class Register {
+public class Register
+{
     static Scanner sc = new Scanner(System.in);
 
-    public static void registrar(String user, String pass){
+    public static void registrar(String user, String pass)
+    {
 
-        while( user.equals(pass) || !validadorDePass.validar(pass) ){
+        while( user.equals(pass) || !validadorDePass.validar(pass) )
+        {
         System.out.println("Ingrese nueva contraseña: ");
         pass = sc.nextLine();
         }
