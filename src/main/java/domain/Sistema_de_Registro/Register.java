@@ -1,4 +1,5 @@
 package domain.Sistema_de_Registro;
+import domain.main.Usuario;
 import java.util.Scanner;
 
 public class Register
@@ -14,8 +15,8 @@ public class Register
         pass = sc.nextLine();
         }
 
-//          Usuario new_user = new Usuario(user,pass);
-//          System.out.println("Nuevo usuario \nid: "+new_user.getUser_id()+"\npass: "+ new_user.getContrasena());
+          Usuario new_user = new Usuario(user,pass);
+          System.out.println("Nuevo usuario \nid: "+new_user.getUser_id()+"\npass: "+ new_user.getContrasena());
 //
 //          guardar usuario en Base.
     }

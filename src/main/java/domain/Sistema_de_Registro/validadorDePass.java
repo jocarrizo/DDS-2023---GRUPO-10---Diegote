@@ -5,22 +5,20 @@ import java.io.IOException;
 
 public class validadorDePass
 {
-
-    public static boolean validar(String pass)
-    {
-        if(8 > pass.length() || !espaciosConsecutivos(pass))
+    public static boolean validar(String pass) {
+        if(8 >= pass.length() || !espaciosConsecutivos(pass))
         {
             System.out.println("Contraseña muy corta. Debe contener al menos 8 caracteres.");
             return false;
         }
 
-        if(64 < pass.length())
+        if(64 <= pass.length())
         {
             System.out.println("Contraseña muy larga. Debe contener menos de 64 caracteres.");
             return false;
         }
 
-        if(!caracteresValidos(pass))
+        if(caracteresValidos(pass))
         {
             System.out.println("Posee caracteres no admitidos.");
             return false;
@@ -43,11 +41,12 @@ public class validadorDePass
     }
 
     private static boolean caracteresValidos(String pass) {
+
         return pass.matches("\\p{Print}");
     }
 
     public static boolean weakPass(String texto) {
-        try ( BufferedReader reader = new BufferedReader(new FileReader("CommonPass.txt") ))
+        try ( BufferedReader reader = new BufferedReader(new FileReader("src/main/java/CommonPass.txt") ))
         {
             String linea;
             while ( (linea = reader.readLine()) != null )
