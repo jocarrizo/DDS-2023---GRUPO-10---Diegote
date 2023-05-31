@@ -1,4 +1,5 @@
 package Usuarios;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -6,31 +7,7 @@ import java.io.IOException;
 public class validadorDePass
 {
     public static boolean validar(String pass) {
-        if(8 >= pass.length() || !espaciosConsecutivos(pass))
-        {
-            System.out.println("Contraseña muy corta. Debe contener al menos 8 caracteres.");
-            return false;
-        }
-
-        if(64 <= pass.length())
-        {
-            System.out.println("Contraseña muy larga. Debe contener menos de 64 caracteres.");
-            return false;
-        }
-
-        if(caracteresValidos(pass))
-        {
-            System.out.println("Posee caracteres no admitidos.");
-            return false;
-        }
-
-        if(weakPass(pass))
-        {
-            System.out.println("La contrasenia ingresada es muy debil.");
-            return false;
-        }
-
-    return true;
+        return (8 >= pass.length() || !espaciosConsecutivos(pass) && 64 <= pass.length() && caracteresValidos(pass) && weakPass(pass));
     }
 
 
