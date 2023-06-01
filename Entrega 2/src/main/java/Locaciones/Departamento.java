@@ -1,4 +1,7 @@
 package Locaciones;
 
-public class Departamento extends Locacion{
+public class Departamento {
+
+    private Provincia provincia;
+    private String nombre;
 }

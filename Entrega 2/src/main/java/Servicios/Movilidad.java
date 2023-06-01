@@ -1,4 +1,5 @@
 package Servicios;
 
-public abstract class Movilidad extends Servicio{
+public class Movilidad extends Servicio{
+    private TipoMovilidad tipoMovilidad;
 }

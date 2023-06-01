@@ -11,15 +11,15 @@ public class Usuario
     private String nombre;
     private String apellido;
     private String correo;
+    private String usuario;
+    private String contrasenia;
     private List<Servicio> servicios;
     private Locacion locacion;
 
-    private String user_id;
-    private String contrasena;
 
     public Usuario(String id, String pass)
     {
-        user_id = id;
-        contrasena = pass;
+        usuario = id;
+        contrasenia = pass;
     }
 }
