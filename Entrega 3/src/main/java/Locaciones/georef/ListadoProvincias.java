@@ -1,4 +1,6 @@
-package Locaciones;
+package Locaciones.georef;
+
+import Locaciones.Provincia;
 
 import java.util.List;
 import java.util.Optional;

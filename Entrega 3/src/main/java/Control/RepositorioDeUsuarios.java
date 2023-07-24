@@ -1,4 +1,6 @@
-package Usuarios;
+package Control;
+
+import Usuarios.Usuario;
 
 import java.util.List;
 

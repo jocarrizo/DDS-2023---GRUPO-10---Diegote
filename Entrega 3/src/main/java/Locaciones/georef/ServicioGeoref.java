@@ -1,7 +1,7 @@
 package Locaciones.georef.georefService;
 
-import Locaciones.ListadoProvincias;
-import Locaciones.ListadoMunicipio;
+import Locaciones.georef.ListadoProvincias;
+import Locaciones.georef.ListadoMunicipio;
 import Locaciones.Provincia;
 import Locaciones.georef.georefService;
 import retrofit2.Call;

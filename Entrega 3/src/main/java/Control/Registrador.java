@@ -1,4 +1,7 @@
-package Usuarios;
+package Control;
+import Control.validadorDePass;
+import Usuarios.Usuario;
+
 import java.util.Scanner;
 
 public class Registrador

@@ -1,5 +1,4 @@
 
-import Usuarios.Registrador;
 import java.util.Scanner;
 
 // App implementa el sistema de registro para esta entrega.

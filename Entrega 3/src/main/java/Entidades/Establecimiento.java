@@ -1,5 +1,6 @@
 package Entidades;
 
+import Servicios.Monitoreable;
 import Servicios.Servicio;
 import Locaciones.Locacion;
 import Servicios.GrupoServicio;
@@ -10,7 +11,6 @@ public class Establecimiento {
     private String nombre;
     private Locacion locacion;
     private List<Tramo> tramos;
-    private List<Servicio> servicios;
-    private List<GrupoServicio> grupoServicios;
+    private Monitoreable monitoreable;
 
 }

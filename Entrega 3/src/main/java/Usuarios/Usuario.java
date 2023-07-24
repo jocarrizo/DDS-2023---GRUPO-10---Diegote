@@ -8,18 +8,15 @@ import java.util.List;
 @Getter
 public class Usuario
 {
-    private String nombre;
-    private String apellido;
-    private String correo;
-    private String usuario;
+    private String id_usuario;
     private String contrasenia;
-    private List<Servicio> servicios;
-    private Locacion locacion;
-
+    private List<Perfil> perfiles;
+    private int nro_telefono;
+    private String correo;
 
     public Usuario(String id, String pass)
     {
-        usuario = id;
+        id_usuario = id;
         contrasenia = pass;
     }
 }
