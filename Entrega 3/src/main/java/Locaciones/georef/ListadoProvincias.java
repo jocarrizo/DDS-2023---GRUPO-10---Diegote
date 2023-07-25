@@ -5,7 +5,7 @@ import Locaciones.Provincia;
 import java.util.List;
 import java.util.Optional;
 
-public class ListadoProvincias {
+public class ListadoProvincias{
     public int cantidad;
     public int total;
     public int inicio;

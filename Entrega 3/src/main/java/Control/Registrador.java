@@ -18,7 +18,7 @@ public class Registrador
         }
 
           Usuario new_user = new Usuario(user,pass);
-          System.out.println("Nuevo usuario \nid: "+new_user.getUsuario()+"\npass: "+ new_user.getContrasenia());
+          System.out.println("Nuevo usuario \nid: "+new_user.getId_usuario()+"\npass: "+ new_user.getContrasenia());
 
 //          guardar usuario en Base.
     }

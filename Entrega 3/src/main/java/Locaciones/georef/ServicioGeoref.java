@@ -1,4 +1,4 @@
-package Locaciones.georef.georefService;
+package Locaciones.georef;
 
 import Locaciones.georef.ListadoProvincias;
 import Locaciones.georef.ListadoMunicipio;
@@ -8,14 +8,13 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import config.Config;
 
 import java.io.IOException;
 
 public class ServicioGeoref {
     private static ServicioGeoref instancia = null;
-    private static final int maximaCantidadRegistrosDefault = 200;
-    private static final String urlApi = Config.URL_API;
+    private static int maximaCantidadRegistrosDefault = 200;
+    private static final String urlApi = "https://apis.datos.gob.ar/georef/api/";
     private final Retrofit retrofit;
 
     private ServicioGeoref() {
@@ -44,5 +43,12 @@ public class ServicioGeoref {
         Call<ListadoMunicipio> requestListadoDeMunicipios = georefService.municipios(provincia.id, "id, nombre", maximaCantidadRegistrosDefault);
         Response<ListadoMunicipio> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
         return responseListadoDeMunicipios.body();
+    }
+
+    public ListadoDepartamentos listadoDepartamentosProvincia(Provincia provincia) throws IOException {
+        georefService georefService = this.retrofit.create(georefService.class);
+        Call<ListadoDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.id, "id, nombre", maximaCantidadRegistrosDefault);
+        Response<ListadoDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
+        return responseListadoDeDepartamentos.body();
     }
 }

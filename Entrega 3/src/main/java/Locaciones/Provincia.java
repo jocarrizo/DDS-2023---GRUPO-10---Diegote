@@ -2,6 +2,6 @@ package Locaciones;
 
 public class Provincia {
 
-    private String nombre;
-    int id;
+    public String nombre;
+    public int id;
 }
