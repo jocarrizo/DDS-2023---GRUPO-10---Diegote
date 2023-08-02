@@ -16,6 +16,7 @@
 
   <dependencies>
 
+    <!-- JUnit -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -23,12 +24,21 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Auth0 -->
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>auth0</artifactId>
+      <version>1.38.0</version>
+    </dependency>
+
+
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.11.0</version>
     </dependency>
 
+    <!-- Lombok (Getters & Setters) -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -48,6 +58,7 @@
       <version>2.9.0</version>
     </dependency>
 
+    <!-- Manejo de csv's -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-csv</artifactId>
@@ -58,6 +69,12 @@
       <groupId>commons-chain</groupId>
       <artifactId>commons-chain</artifactId>
       <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.1</version>
+      <scope>test</scope>
     </dependency>
 
   </dependencies>

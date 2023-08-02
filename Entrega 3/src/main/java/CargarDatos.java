@@ -17,6 +17,7 @@ public class CargarDatos {
                 String columnOne = record.get(0);
                 String columnTwo = record.get(1);
                 // Agregar columnas en caso de necesitarlas
+                // Realizar lo que se necesite aca.
                 System.out.println(columnOne + " ; " + columnTwo);
             }
 
