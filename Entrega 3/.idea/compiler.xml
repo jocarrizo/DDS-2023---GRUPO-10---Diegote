@@ -7,8 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Ejercicio29-Guia" />
+        <module name="TPA_DDS_2023" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Ejercicio29-Guia" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
