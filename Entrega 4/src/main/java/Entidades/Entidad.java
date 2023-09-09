@@ -5,13 +5,36 @@ import Servicios.*;
 import Usuarios.*;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+
+@Getter
+@Setter
+@Entity
 public class Entidad {
 
+    @Id
+    @GeneratedValue
+    private long id_entidad;
+
     private String nombre;
+
+    @OneToMany (mappedBy = "id_establecimiento")
     private List<Establecimiento> establecimientos;
+
     private TipoEntidad tipo;
+
+    @ManyToOne
+    @JoinColumn (name = "id_localizacion")
     private Locacion locacion;
+
+    @OneToMany (mappedBy = "id_incicente")
     private List<Incidente> incidentes;
+
+    @OneToMany (mappedBy = "id_perfil")
     private List<Perfil> suscripciones;
 
     public void agregar_incidente(Incidente incidente){};

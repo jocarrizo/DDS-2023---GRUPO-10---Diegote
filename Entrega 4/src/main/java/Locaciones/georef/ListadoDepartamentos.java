@@ -6,11 +6,20 @@ import java.util.List;
 import java.util.Optional;
 
 public class ListadoDepartamentos {
-    public int cantidad;
-    public int total;
-    public int inicio;
-    public Parametro parametros;
-    public List<Departamento> departamentos;
+    private int cantidad;
+    private int total;
+    private int inicio;
+    private Parametro parametros;
+    private List<Departamento> departamentos;
+
+    private static ListadoDepartamentos instance = null;
+    private ListadoDepartamentos() {}
+    public static ListadoDepartamentos getInstance() {
+        if (instance == null) {
+            instance = new ListadoDepartamentos();
+        }
+        return instance;
+    }
 
     public Optional<Departamento> departamentoDeId(int id){
         return this.departamentos.stream()

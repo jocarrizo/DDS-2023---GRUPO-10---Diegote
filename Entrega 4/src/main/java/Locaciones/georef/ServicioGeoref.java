@@ -1,10 +1,8 @@
 package Locaciones.georef;
 
-import Locaciones.georef.ListadoProvincias;
-import Locaciones.georef.ListadoMunicipio;
 import Locaciones.Provincia;
-import Locaciones.georef.georefService;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -23,7 +21,7 @@ public class ServicioGeoref {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
-
+    //Singleton
     public static ServicioGeoref instancia(){
         if(instancia== null){
             instancia = new ServicioGeoref();
@@ -40,7 +38,7 @@ public class ServicioGeoref {
 
     public ListadoMunicipio listadoMunicipiosProvincia(Provincia provincia) throws IOException {
         georefService georefService = this.retrofit.create(georefService.class);
-        Call<ListadoMunicipio> requestListadoDeMunicipios = georefService.municipios(provincia.id, "id, nombre", maximaCantidadRegistrosDefault);
+        Call<ListadoMunicipio> requestListadoDeMunicipios = georefService.municipios(provincia.getNombre(),"id,nombre,provincia,centroide", maximaCantidadRegistrosDefault);
         Response<ListadoMunicipio> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
         return responseListadoDeMunicipios.body();
     }

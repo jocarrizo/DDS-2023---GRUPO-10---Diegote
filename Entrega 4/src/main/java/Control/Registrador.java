@@ -10,7 +10,7 @@ public class Registrador
     {
         if (user.equals(pass) || !validadorDePass.validar(pass)) return false;
 
-        Usuario new_user = new Usuario(user,pass);
+        Usuario new_user = new Usuario();
         return true;
     }
 }
