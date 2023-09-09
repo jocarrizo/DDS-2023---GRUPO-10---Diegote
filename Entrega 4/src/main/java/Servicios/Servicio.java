@@ -9,20 +9,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Servicio {
-
-    @Id
-    @GeneratedValue
-    private long id_monitoreable;
+public class Servicio extends Monitoreable {
 
     @Column (name="disponibilidad")
     private Boolean disponibilidad;
 
-    @Column (name="tipo_servicio")
+    @Transient
     private TipoServicio tipoServicio;
 
     @Column (name="descripcion")
     private String descripcion;
+
+    public Servicio() {}
 
     public boolean estaHabilitado(){
         return true;

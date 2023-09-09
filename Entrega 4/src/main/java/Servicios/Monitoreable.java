@@ -19,8 +19,8 @@ public class Monitoreable {
     @Column(name = "NOMBRE")
     private String nombre;
 
-    public boolean estaHabilitado(){
 
+    public boolean estaHabilitado(){
         return true;
     }
     public void agregarMonitoreable(){

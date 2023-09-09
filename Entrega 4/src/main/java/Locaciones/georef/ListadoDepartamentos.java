@@ -21,13 +21,26 @@ public class ListadoDepartamentos {
         return instance;
     }
 
-    public Optional<Departamento> departamentoDeId(int id){
-        return this.departamentos.stream()
-                .filter(d -> d.id == id)
-                .findFirst();
+
+    @Override
+    public String toString() {
+        return "ListadoDepartamentos{" +
+                "cantidad=" + cantidad +
+                ", total=" + total +
+                ", inicio=" + inicio +
+                ", parametros=" + parametros.toString() +
+                ", departamentos=" + departamentos +
+                '}';
     }
 
-    private class Parametro {
+    private static class Parametro {
         public List<String> campos;
+
+        @Override
+        public String toString() {
+            return "Parametro{" +
+                    "campos=" + campos +
+                    '}';
+        }
     }
 }

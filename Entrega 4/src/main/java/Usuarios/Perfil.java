@@ -24,18 +24,20 @@ public class Perfil {
     @Column(name = "APELLIDO")
     private String apellido;
 
-    @ManyToMany(mappedBy = "")
+    @Transient
     private List<Monitoreable> suscripciones;
 
-    @OneToMany (mappedBy = "id_localizacion")
+    @Transient
     private Locacion locacion;
 
-    @Column (name = "estrategiaNotificacion")
+    @Transient
     private EstrategiaNotificacion estrategiaNotificacion;
 
     @ManyToOne()
     @JoinColumn(name="id_usuario")
     private Usuario id_usuario_asoc;
+
+    public Perfil(){}
 
     private boolean esDeInteres(){
         return true;

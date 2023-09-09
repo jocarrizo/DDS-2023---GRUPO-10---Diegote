@@ -23,17 +23,14 @@ public class Establecimiento {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "locacion")
-    @ManyToOne
-    @JoinColumn(name = "id_localizacion")
+
+    @Transient
     private Locacion locacion;
 
-    @Column(name = "tramo")
-    @ManyToOne
-    @JoinColumn(name = "id_tramo")
+    @OneToMany(mappedBy = "establecimiento")
     private List<Tramo> tramos;
 
-    @Column(name = "monitoreable")
+
     @OneToOne
     @JoinColumn(name = "id_monitoreable")
     private Monitoreable monitoreable;

@@ -31,10 +31,10 @@ public class Entidad {
     @JoinColumn (name = "id_localizacion")
     private Locacion locacion;
 
-    @OneToMany (mappedBy = "id_incicente")
+    @Transient
     private List<Incidente> incidentes;
 
-    @OneToMany (mappedBy = "id_perfil")
+    @Transient
     private List<Perfil> suscripciones;
 
     public void agregar_incidente(Incidente incidente){};

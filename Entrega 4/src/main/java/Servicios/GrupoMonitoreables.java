@@ -1,6 +1,6 @@
 package Servicios;
 
-public class GrupoMonitoreables {
+public class GrupoMonitoreables extends Monitoreable {
 
     public boolean estaHabilitado(){
 

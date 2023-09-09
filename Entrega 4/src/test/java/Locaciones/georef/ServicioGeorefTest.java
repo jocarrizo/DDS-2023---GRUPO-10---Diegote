@@ -43,4 +43,17 @@ class ServicioGeorefTest {
         }
         assertNotNull(lm);
     }
+
+    @Test
+    void departamento(){
+        ListadoDepartamentos ld;
+        Provincia p = lp.provinciaDeId(90);
+        try{
+            ld = sg.listadoDepartamentosProvincia(p);
+            System.out.println(ld.toString());
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
+    }
 }

@@ -14,8 +14,7 @@ public class Incidente {
     @GeneratedValue
     private long id_incidente;
 
-    @ManyToOne
-    @JoinColumn (name = "id_monitoreable")
+    @Transient
     private Monitoreable servicio;
 
     private String observaciones;

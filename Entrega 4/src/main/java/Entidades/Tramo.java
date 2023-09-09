@@ -1,5 +1,6 @@
 package Entidades;
 
+import Servicios.Monitoreable;
 import Servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +17,13 @@ public class Tramo {
     @GeneratedValue
     private long id_tramo;
 
-    @OneToMany (mappedBy = "id_monitoreable")
-    private List<Servicio> listaServicios;
+    @Transient
+    private Monitoreable monitoreable;
 
+    @Column
     private String descripcion;
+
+    @ManyToOne()
+    @JoinColumn(name = "establecimiento_id")
+    private Establecimiento establecimiento;
 }

@@ -22,34 +22,28 @@ public class Comunidad {
     private long id_comunidad;
 
     @ManyToMany
-    @JoinTable(name="Comunidad_X_Perfil",
+    @JoinTable(name="comunidad_x_perfil",
             joinColumns={@JoinColumn(name="id_comunidad")},
             inverseJoinColumns={@JoinColumn(name="id_perfil")})
     private List<Perfil> miembros;
 
-    @OneToMany(mappedBy = "comunidad")
+    @Transient
     private List<Monitoreable> serviciosDeInteres;
 
-    @ManyToMany
-    @JoinTable(name="Comunidad_X_Perfil",
-            joinColumns={@JoinColumn(name="id_comunidad")},
-            inverseJoinColumns={@JoinColumn(name="id_perfil")})
+
+    @Transient
     private List<Perfil>  administradores;
 
-    @OneToMany(mappedBy = "comunidad")
+    @Transient
     private List<Incidente> incidentes;
 
-    @ManyToMany
-    @JoinTable(name="Comunidad_X_Perfil",
-            joinColumns={@JoinColumn(name="id_comunidad")},
-            inverseJoinColumns={@JoinColumn(name="id_perfil")})
+    @Transient
     private List<Perfil> afectados;
 
-    @ManyToMany
-    @JoinTable(name="Comunidad_X_Perfil",
-            joinColumns={@JoinColumn(name="id_comunidad")},
-            inverseJoinColumns={@JoinColumn(name="id_perfil")})
+    @Transient
     private List<Perfil> observadores;
+
+    public Comunidad() {}
 
     public void notificarIncidente(Incidente I){};
     public void cerrarIncidente(Incidente I){};
