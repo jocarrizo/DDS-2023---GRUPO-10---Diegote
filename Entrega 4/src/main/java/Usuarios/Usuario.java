@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,11 +15,12 @@ import java.util.List;
 public class Usuario
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private long id_usuario;
 
-    @OneToMany(mappedBy ="id_usuario_asoc" )
-    private List<Perfil> perfiles;
+    @OneToMany(mappedBy ="usuario_asoc" )
+    private List<Perfil> perfiles = new ArrayList<>();
 
     @Column(name = "PASSWORD")
     private String contrasenia;
@@ -29,4 +31,10 @@ public class Usuario
 
     public Usuario() {}
 
+    public void addPerfil(Perfil p){
+        if(!perfiles.contains(p)){
+            perfiles.add(p);
+            p.setUsuario_asoc(this);
+        }
+    }
 }

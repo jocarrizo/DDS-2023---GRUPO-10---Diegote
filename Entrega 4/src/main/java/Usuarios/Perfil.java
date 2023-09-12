@@ -4,10 +4,15 @@ import Locaciones.Locacion;
 import Notificaciones.EstrategiaNotificacion;
 import Servicios.Monitoreable;
 import Servicios.Incidente;
+import Usuarios.Comunidades.Comunidad;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,6 +21,7 @@ import java.util.List;
 public class Perfil {
     @Id
     @GeneratedValue
+    @Column(name = "ID")
     private long id_perfil;
 
     @Column(name = "NOMBRE")
@@ -24,8 +30,9 @@ public class Perfil {
     @Column(name = "APELLIDO")
     private String apellido;
 
-    @Transient
-    private List<Monitoreable> suscripciones;
+    @OneToOne
+    @JoinColumn(name="ID_MONITOREABLE")
+    private Monitoreable monitoreable;
 
     @Transient
     private Locacion locacion;
@@ -34,8 +41,11 @@ public class Perfil {
     private EstrategiaNotificacion estrategiaNotificacion;
 
     @ManyToOne()
-    @JoinColumn(name="id_usuario")
-    private Usuario id_usuario_asoc;
+    @JoinColumn(name="ID_USUARIO")
+    private Usuario usuario_asoc;
+
+    @OneToMany(mappedBy = "perfil")
+    private List<comunidad_x_perfil> comunidades = new ArrayList<>();
 
     public Perfil(){}
 

@@ -1,9 +1,23 @@
 package Servicios;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Setter
+@Getter
 public class GrupoMonitoreables extends Monitoreable {
 
-    public boolean estaHabilitado(){
+    @OneToMany(mappedBy = "grupoAsociado")
+    private List<Monitoreable> monitoreables = new ArrayList<>();
 
+    public boolean estaHabilitado(){
         return true;
     }
     public void agregarMonitoreable(){

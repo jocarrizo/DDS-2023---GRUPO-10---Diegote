@@ -1,6 +1,8 @@
 package Servicios;
 
 
+import Entidades.Tramo;
+import Usuarios.Perfil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +21,15 @@ public class Monitoreable {
     @Column(name = "NOMBRE")
     private String nombre;
 
+    @ManyToOne
+    @JoinColumn(name="ID_GRUPO_MONITOREABLE")
+    private GrupoMonitoreables grupoAsociado;
 
+    @OneToOne(mappedBy = "monitoreable")
+    private Perfil suscripcionMonitoreable;
+
+    @OneToOne(mappedBy = "monitoreable")
+    private Tramo tramoAsociado;
     public boolean estaHabilitado(){
         return true;
     }

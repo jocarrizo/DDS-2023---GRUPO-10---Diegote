@@ -12,18 +12,20 @@ import java.util.List;
 @Setter
 @Entity
 public class Tramo {
-
     @Id
     @GeneratedValue
     private long id_tramo;
 
-    @Transient
+    @OneToOne
+    @JoinColumn(name="ID_MONITOREABLE")
     private Monitoreable monitoreable;
+
+    @ManyToOne
+    @JoinColumn(name="ID_ESTABLECIMIENTO")
+    private Establecimiento establecimiento;
 
     @Column
     private String descripcion;
 
-    @ManyToOne()
-    @JoinColumn(name = "establecimiento_id")
-    private Establecimiento establecimiento;
+
 }
