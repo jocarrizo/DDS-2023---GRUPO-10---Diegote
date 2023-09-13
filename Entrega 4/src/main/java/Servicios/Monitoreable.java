@@ -25,11 +25,7 @@ public class Monitoreable {
     @JoinColumn(name="ID_GRUPO_MONITOREABLE")
     private GrupoMonitoreables grupoAsociado;
 
-    @OneToOne(mappedBy = "monitoreable")
-    private Perfil suscripcionMonitoreable;
 
-    @OneToOne(mappedBy = "monitoreable")
-    private Tramo tramoAsociado;
     public boolean estaHabilitado(){
         return true;
     }

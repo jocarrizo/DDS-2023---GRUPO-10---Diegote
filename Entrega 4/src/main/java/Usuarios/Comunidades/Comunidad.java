@@ -2,10 +2,7 @@ package Usuarios.Comunidades;
 
 import Servicios.Incidente;
 import Servicios.Monitoreable;
-import Servicios.Servicio;
 import Usuarios.Perfil;
-import Usuarios.Usuario;
-import Usuarios.comunidad_x_perfil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +10,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -25,12 +23,14 @@ public class Comunidad {
     private long id_comunidad;
 
     @OneToMany(mappedBy = "comunidad")
-    private List<comunidad_x_perfil> miembros = new ArrayList<>();
+    private List<comunidad_x_perfil> miembros = new ArrayList<comunidad_x_perfil>();
 
     @Transient
     private List<Monitoreable> serviciosDeInteres;
 
-    @Transient
+    @OneToMany(mappedBy = "comunidad",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true )
     private List<Incidente> incidentes;
 
     @Transient
@@ -40,19 +40,37 @@ public class Comunidad {
     public Comunidad(){}
 
     public void addMiembro(Perfil s){
-        comunidad_x_perfil nuevo = new comunidad_x_perfil(this, s);
-        if(!miembros.contains(nuevo)){
+        agregarMiembro(s, false, false,false);
+    }
+
+    public void addAdministrador(Perfil s) {
+        agregarMiembro(s, true, false,false);
+    }
+
+    public void addObservador(Perfil s) {
+        agregarMiembro(s, false, true,false);
+    }
+
+    private void agregarMiembro(Perfil s, boolean esAdministrador, boolean esObservador, boolean esAfectado) {
+        comunidad_x_perfil nuevo = new comunidad_x_perfil(this, s, esAdministrador,esObservador,esAfectado);
+
+        if (!miembros.contains(nuevo)) {
             miembros.add(nuevo);
             s.getComunidades().add(nuevo);
         }
     }
 
-    public void addAdministrador(Perfil s){
-        comunidad_x_perfil nuevo = new comunidad_x_perfil(this, s,true);
-        if(!miembros.contains(nuevo)){
-            miembros.add(nuevo);
-            s.getComunidades().add(nuevo);
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comunidad comunidad = (Comunidad) o;
+        return id_comunidad == comunidad.id_comunidad && Objects.equals(miembros, comunidad.miembros) && Objects.equals(serviciosDeInteres, comunidad.serviciosDeInteres) && Objects.equals(incidentes, comunidad.incidentes) && Objects.equals(afectados, comunidad.afectados);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_comunidad, miembros, serviciosDeInteres, incidentes, afectados);
     }
 
     public void removeMiembro(Perfil s){

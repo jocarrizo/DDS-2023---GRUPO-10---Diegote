@@ -14,18 +14,22 @@ import javax.persistence.*;
 @Setter
 @Entity
 public class Establecimiento {
-
     @Id
     @GeneratedValue
     private long id_establecimiento;
 
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String nombre;
 
-    @Transient
+    @OneToOne
+    @JoinColumn(name="ID_LOCACION")
     private Locacion locacion;
+
 
     @OneToMany( mappedBy = "establecimiento")
     private List<Tramo> tramos;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_ENTIDAD")
+    private Entidad entidad;
 }

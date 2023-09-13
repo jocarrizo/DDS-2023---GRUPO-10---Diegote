@@ -15,23 +15,25 @@ import javax.persistence.*;
 @Setter
 @Entity
 public class Entidad {
-
     @Id
     @GeneratedValue
     private long id_entidad;
 
+    @Column(name="NOMBRE")
     private String nombre;
 
-    @OneToMany (mappedBy = "id_establecimiento")
+    @OneToMany (mappedBy = "entidad")
     private List<Establecimiento> establecimientos;
 
+    @Enumerated(EnumType.STRING)
+    @Column
     private TipoEntidad tipo;
 
     @ManyToOne
     @JoinColumn (name = "id_localizacion")
     private Locacion locacion;
 
-    @Transient
+    @OneToMany(mappedBy = "entidad")
     private List<Incidente> incidentes;
 
     @Transient

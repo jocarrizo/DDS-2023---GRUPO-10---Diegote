@@ -1,4 +1,6 @@
 package Servicios;
+import Entidades.Entidad;
+import Usuarios.Comunidades.Comunidad;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,11 +16,24 @@ public class Incidente {
     @GeneratedValue
     private long id_incidente;
 
-    @Transient
-    private Monitoreable servicio;
+    @OneToOne
+    @JoinColumn(name="ID_MONITOREABLE")
+    private Monitoreable monitoreable;
 
+    @ManyToOne
+    @JoinColumn(name="ID_ENTIDAD")
+    private Entidad entidad;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_COMUNIDAD")
+    private Comunidad comunidad;
+
+    @Column
     private String observaciones;
+    @Column
     private boolean abierto;
+    @Column
     private Date apertura;
+    @Column
     private Date cierre;
 }

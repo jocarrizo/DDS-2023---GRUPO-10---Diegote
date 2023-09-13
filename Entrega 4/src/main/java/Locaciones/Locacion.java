@@ -22,4 +22,28 @@ public class Locacion {
     @Transient
     private UbicacionGeografica ubicacion;
 
+    @Column
+    private String
+            nombre_municipio,
+            nombre_departamento,
+            nombre_provincia,
+            nombre_barrio,
+            calle;
+
+    @Column
+    private int altura;
+
+    public Locacion() {}
+
+    public Locacion(List<Establecimiento> establecimientos, UbicacionGeografica ubicacion) {
+        this.establecimientos = establecimientos;
+        this.ubicacion = ubicacion;
+
+        this.nombre_municipio = ubicacion.getMunicipio().getNombre();
+        this.nombre_departamento = ubicacion.getMunicipio().getDepartamento().getNombre();
+        this.nombre_provincia = getUbicacion().getMunicipio().getProvincia().getNombre();
+        this.nombre_barrio = getUbicacion().getBarrio();
+        this.calle = getUbicacion().getDireccion().getCalle();
+        this.altura = getUbicacion().getDireccion().getAltura();
+    }
 }
