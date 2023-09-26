@@ -3,13 +3,13 @@ package domain;
 import java.util.List;
 
 public class Comunidad {
-    private long id_comunidad;
+    private Long id_comunidad;
 
     private List<Perfil> perfiles;
-    private Float puntaje;
+    private Double puntaje;
     private Confianza confianza;
     public void actualizarPuntaje() {
-        Double puntaje =  perfiles.stream()
+        puntaje =  perfiles.stream()
                 .mapToDouble(Perfil::getPuntaje)
                 .average()
                 .orElse(0.0); // Manejo de caso especial para evitar NaN
@@ -33,7 +33,7 @@ public class Comunidad {
         }
     }
 
-    public Float getPuntaje(){
+    public Double getPuntaje(){
         return puntaje;
     }
     public Long getId(){

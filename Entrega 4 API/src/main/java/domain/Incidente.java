@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Incidente {
 
-    private long id_incidente;
+    private Long id_incidente;
     private Incidente monitoreable;
     private Comunidad comunidad;
     private Date apertura;
@@ -17,7 +17,6 @@ public class Incidente {
         long tiempoCierre = cierre.getTime();
         long duracionEnMili = tiempoCierre - tiempoInicio;
 
-        // Convert milliseconds to seconds and return
         return (int) (duracionEnMili / 60*1000);
     }
 

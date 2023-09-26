@@ -1,29 +1,29 @@
 package persistance;
-import org.eclipse.jetty.util.thread.Scheduler;
+
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import static org.quartz.JobBuilder.newJob;
+
 
 public class Programador{
 
     public static void main(String[] args) throws SchedulerException {
-        // Obtén el planificador de Quartz
-        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
 
-        // Inicia el planificador
+        SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+        Scheduler scheduler = schedulerFactory.getScheduler();
+
+        JobDetail job = newJob(Actualizador.class)
+                .withIdentity("ActualizarDB", "group1")
+                .build()
+        CronTrigger trigger = TriggerBuilder.newTrigger()
+                .withIdentity("DispararActualizasao", "group1")
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 13 * * SUN"))
+                .forJob("ActualizarDB", "group1")
+                .build();
         scheduler.start();
 
-        // Define el JobDetail que especifica la clase Actualizador
-        JobDetail jobDetail = JobBuilder.newJob(Actualizador.class)
-                .withIdentity("actualizadorJob", "grupo1")
-                .build();
+        scheduler.scheduleJob(job, trigger);
 
-        // Define el disparador (Trigger) que programa la ejecución del Job todos los domingos a las 13 horas
-        Trigger trigger = TriggerBuilder.newTrigger()
-                .withIdentity("domingoTrigger", "grupo1")
-                .withSchedule(CronScheduleBuilder.weeklyOnDayAndHourAndMinute(Calendar.SUNDAY, 13, 0))
-                .build();
-
-        // Programa el Job con el Trigger
-        scheduler.scheduleJob(jobDetail, trigger);
     }
+
 }

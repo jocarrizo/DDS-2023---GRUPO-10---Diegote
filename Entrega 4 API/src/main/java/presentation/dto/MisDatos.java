@@ -7,7 +7,8 @@ public class MisDatos {
 
     private Long id;
     private Confianza categoria;
-    private Float puntaje;
+    private Double puntaje;
+    private String tipoDato;
 
     public Long getId() {
         return id;
@@ -17,12 +18,18 @@ public class MisDatos {
         this.id = ID;
     }
 
-    public Float getPuntaje() {
+    public Double getPuntaje() {
         return puntaje;
     }
 
-    public void setPuntaje(Float puntos) {
+    public void setPuntaje(Double puntos) {
         this.puntaje = puntos;
+    }
+    public String getTipo() {
+        return tipoDato;
+    }
+    public void setTipo(String tipo) {
+        this.tipoDato = tipo;
     }
 
     public Confianza getCategoria() {

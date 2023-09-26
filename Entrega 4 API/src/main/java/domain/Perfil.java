@@ -10,11 +10,11 @@ public class Perfil {
     private String nombre;
     private String apellido;
     private List<Incidente> monitoreables;
-    private Float puntaje;
+    private Double puntaje;
 
 
 
-    public Float getPuntaje(){
+    public Double getPuntaje(){
         return puntaje;
     }
     public Long getId(){
@@ -52,14 +52,14 @@ public class Perfil {
         return this.confianza == Confianza.ConReservas;
     }
 
-    private float puntosASumar(){
+    private Double puntosASumar(){
         if (monitoreables.size() - this.getIncidentesFraudulentos().size() > 0){
-            return 0.5f;
-        } else {return 0;}
+            return 0.5;
+        } else {return 0.0;}
     }
 
-    private float puntosARestar(){
-        return this.getIncidentesFraudulentos().size() * 0.2f;
+    private Double puntosARestar(){
+        return this.getIncidentesFraudulentos().size() * 0.2;
     }
 
 

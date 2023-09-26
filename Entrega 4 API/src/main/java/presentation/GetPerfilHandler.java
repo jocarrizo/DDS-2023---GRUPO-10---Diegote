@@ -9,10 +9,19 @@ import presentation.dto.MisDatos;
 
 public class GetPerfilHandler implements Handler {
 
+    @OpenApi(
+            path = "/api/perfil/{id}",
+            methods = {HttpMethod.GET},
+            pathParams = @OpenApiParam(name = "id", description = "ID perfil a buscar", required = true, type = Long.class)
+//            responses = {
+//                    @OpenApiResponse(status = "200", content = @OpenApiContent(from = Mascota.class)),
+//                    @OpenApiResponse(status = "404" )
+//            }
+    )
     @Override
     public void handle(@NotNull Context context) throws Exception {
 
-        Long id = Long.valueOf(context.pathParamAsClass("idPerfil", Integer.class).get());
+        Long id = context.pathParamAsClass("idPerfil", Long.class).get();
 
         Perfil perfil = this.perfilPorId(id);
 

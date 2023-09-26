@@ -1,12 +1,12 @@
 package persistance;
 
 import domain.Comunidad;
+import domain.Incidente;
 import domain.Perfil;
+
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,16 +24,13 @@ public class Actualizador implements Job {
             transaction = session.beginTransaction();
 
             List<Perfil> perfiles = getPerfiles();
+            List<Comunidad> comunidades = getComunidades();
 
-            Map<String, Perfil> mapaPerfiles = new HashMap<>();
-            for (Perfil perfil : mapaPerfiles.values()) {
+            for (Perfil perfil : perfiles) {
                 perfil.actualizarPuntaje();
             }
 
-            List<Comunidad> comunidades = getComunidades();
-
-            Map<String, Comunidad> mapaComunidades = new HashMap<>();
-            for (Comunidad comunidad : mapaComunidades.values()) {
+            for (Comunidad comunidad : comunidades) {
                 comunidad.actualizarPuntaje();
             }
 
