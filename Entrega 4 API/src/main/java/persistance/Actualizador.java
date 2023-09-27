@@ -1,43 +1,48 @@
 package persistance;
 
-import domain.Comunidad;
-import domain.Incidente;
-import domain.Perfil;
+import domain.*;
 
+import jakarta.transaction.Transaction;
+import lombok.SneakyThrows;
+import org.eclipse.jetty.server.session.Session;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import java.util.HashMap;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
-import java.util.Map;
+import javax.persistence.*;
 
 public class Actualizador implements Job {
 
+    private String update_query = "UPDATE :tabla SET puntaje = :nuevoPuntaje, categoria =:nuevaCategoria WHERE id_perfil = :entityId";
+
+    @SneakyThrows
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        // Incluir la lógica para actualizar los campos Puntaje y Categoria en la base de datos utilizando Hibernate
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
+
 
         try {
             transaction = session.beginTransaction();
 
-            List<Perfil> perfiles = getPerfiles();
-            List<Comunidad> comunidades = getComunidades();
+            List<Incidente> incidentes = getIncidentes(session);
+            List<Perfil> perfiles = getPerfiles(session, incidentes);
 
             for (Perfil perfil : perfiles) {
+
                 perfil.actualizarPuntaje();
+                actualizarPerfilDB(session, perfil.getPuntaje(), perfil.getCategoria(), perfil.getId());
             }
 
-            for (Comunidad comunidad : comunidades) {
-                comunidad.actualizarPuntaje();
-            }
-
-            //CAMBIAR LOS CAMPOS DE LOS PUNTAJES EN LA BASE DE DATOS
-
+            actualizarComunidadDB(session);
 
             transaction.commit();
+
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -48,68 +53,47 @@ public class Actualizador implements Job {
         }
     }
 
-    private List<Perfil> getPerfiles(){
-        /* ESTARIA BUENO QUE TRAIGA SUS INCIDENTES Y LOS GUARDE EN UNA LISTA
-        QUERY:
-                SELECT p.id_perfil,
-                       nombre,
-                       apellido,
-                       puntaje,
-                       i.id_incidente
-                FROM Perfil p
-                WHERE
-                    (SELECT id_perfil_apertura
-                    FROM Incidente
-                    WHERE (id_perfil_apertura = p.id_perfil OR id_perfil_cierre = p.id_perfil)
-                    AND (apertura >= CURRENT_DATE() - INTERVAL 7 DAY OR cierre >= CURRENT_DATE() - INTERVAL 7 DAY)
+    private void actualizarComunidadDB(Session session){
+        String sql = "UPDATE comunidad c " +
+                "SET c.puntaje = (SELECT AVG(p.puntaje) FROM perfil p WHERE p.id_perfil = c.id_perfil)";
+        session.createSQLQuery(sql).executeUpdate();
+    }
+    private void actualizarPerfilDB(Session session,Double nuevoPuntaje, Confianza nuevaCategoria, Long id){
+
+        Query query = session.createQuery(update_query);
+        query.setParameter("tabla", "Perfil");
+        query.setParameter("nuevoPuntaje", nuevoPuntaje);
+        query.setParameter("nuevaCategoria", nuevaCategoria);
+        query.setParameter("entityId", id);
+
+        query.executeUpdate();
+    }
+
+    private List<Perfil> getPerfiles(Session session, List<Incidente> incidentes){
+
+        //Fijarse los perfiles que estan en la lista de incidentes que se carga
+        String hql = "SELECT id_incidente, comunidad, apertura, cierre, id_perfil_apertura, id_perfil_cierre FROM Incidente " +
+                "WHERE apertura >= :ultimoDomingo " +
+                "AND id_perfil in :listaPerfiles";
 
 
-        */
         return perfiles;
     }
+    private List<Incidente> getIncidentes(Session session) {
 
+        LocalDateTime ahora = LocalDateTime.now();
+        LocalDateTime ultimoDomingo = ahora.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).withHour(13).withMinute(0).withSecond(0);
 
-    private List<Comunidad> getComunidades(){
-        /*
-        QUERY:
-                SELECT p.id_perfil,
-                       nombre,
-                       apellido,
-                       puntaje,
-                       i.id_incidente
-                FROM Perfil p
-                WHERE
-                    (SELECT id_perfil_apertura
-                    FROM Incidente
-                    WHERE (id_perfil_apertura = p.id_perfil OR id_perfil_cierre = p.id_perfil)
-                    AND (apertura >= CURRENT_DATE() - INTERVAL 7 DAY OR cierre >= CURRENT_DATE() - INTERVAL 7 DAY)
+        String hql = "SELECT id_incidente, comunidad, apertura, cierre, id_perfil_apertura, id_perfil_cierre FROM Incidente WHERE apertura >= :ultimoDomingo";
 
+        Query<Incidente> query = session.createQuery(hql, Incidente.class);
+        query.setParameter("ultimoDomingo", ultimoDomingo);
 
-        */
-        return comunidades;
+        return query.list();
     }
 
-
-    private List<Incidente> getIncidentes(){
-        /*
-        QUERY:
-
-        */
-        return incidentes;
-
-    }
 
 
 }
 
-/* SELECT c.id_comunidad,
-          cxp.id_perfil,
-          c.incidentes,
-          c.puntaje
-   FROM Comunidad c
-   JOIN Comunidad_X_Perfil cxp on c.id_comunidad = cxp.id_comunidad;
 
-
-
-
- */

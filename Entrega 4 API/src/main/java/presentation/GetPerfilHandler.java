@@ -3,6 +3,9 @@ package presentation;
 import domain.Perfil;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
+import io.javalin.openapi.HttpMethod;
+import io.javalin.openapi.OpenApi;
+import io.javalin.openapi.OpenApiParam;
 import org.jetbrains.annotations.NotNull;
 import presentation.dto.MisDatos;
 

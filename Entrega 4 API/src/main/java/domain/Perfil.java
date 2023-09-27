@@ -1,29 +1,20 @@
 package domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
 public class Perfil {
     private Long id_perfil;
-
     private Confianza confianza;
     private String nombre;
     private String apellido;
     private List<Incidente> monitoreables;
     private Double puntaje;
-
-
-
-    public Double getPuntaje(){
-        return puntaje;
-    }
-    public Long getId(){
-        return id_perfil;
-    }
-
-    public Confianza getCategoria(){
-        return confianza;
-    }
 
     public List<Incidente> getIncidentesFraudulentos() {
         return monitoreables.stream()

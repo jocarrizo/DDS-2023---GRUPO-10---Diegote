@@ -1,10 +1,14 @@
 package domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter
+@Setter
 public class Comunidad {
     private Long id_comunidad;
-
     private List<Perfil> perfiles;
     private Double puntaje;
     private Confianza confianza;
@@ -33,14 +37,4 @@ public class Comunidad {
         }
     }
 
-    public Double getPuntaje(){
-        return puntaje;
-    }
-    public Long getId(){
-        return id_comunidad;
-    }
-
-    public Confianza getCategoria(){
-        return confianza;
-    }
 }
