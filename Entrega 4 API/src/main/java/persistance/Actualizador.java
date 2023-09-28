@@ -12,6 +12,7 @@ import org.quartz.JobExecutionException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -71,10 +72,20 @@ public class Actualizador implements Job {
 
     private List<Perfil> getPerfiles(Session session, List<Incidente> incidentes){
 
-        //Fijarse los perfiles que estan en la lista de incidentes que se carga
-        String hql = "SELECT id_incidente, comunidad, apertura, cierre, id_perfil_apertura, id_perfil_cierre FROM Incidente " +
-                "WHERE apertura >= :ultimoDomingo " +
-                "AND id_perfil in :listaPerfiles";
+        List<Long> listaPerfiles = new ArrayList<>();
+
+        for (Incidente incidente : incidentes) {
+            listaPerfiles.add(incidente.getId_perfil_apertura());
+            listaPerfiles.add(incidente.getId_perfil_cierre());
+        }
+
+        String hql = "SELECT id_perfil, confianza, nombre, apellido, monitoreable, puntaje FROM Perfil " +
+                "WHERE id_perfil_apertura in :listaPerfiles" +
+                "     OR id_perfil_cierre  in :listaPerfiles";
+
+        Query query = session.createQuery(hql, Incidente.class);
+        query.setParameter("listaPerfiles", listaPerfiles);
+
 
 
         return perfiles;
@@ -86,7 +97,7 @@ public class Actualizador implements Job {
 
         String hql = "SELECT id_incidente, comunidad, apertura, cierre, id_perfil_apertura, id_perfil_cierre FROM Incidente WHERE apertura >= :ultimoDomingo";
 
-        Query<Incidente> query = session.createQuery(hql, Incidente.class);
+        Query query = session.createQuery(hql, Incidente.class);
         query.setParameter("ultimoDomingo", ultimoDomingo);
 
         return query.list();

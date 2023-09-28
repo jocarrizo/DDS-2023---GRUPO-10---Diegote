@@ -1,5 +1,3 @@
-
-
 import io.javalin.Javalin;
 import org.quartz.*;
 import presentation.GetComunidadHandler;
