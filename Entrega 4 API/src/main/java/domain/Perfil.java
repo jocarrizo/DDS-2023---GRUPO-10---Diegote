@@ -1,28 +1,74 @@
 package domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
+@Entity
 public class Perfil {
+    @Id
+    @GeneratedValue
     private Long id_perfil;
+
+    @Enumerated(EnumType.STRING)
     private Confianza confianza;
-    private String nombre;
-    private String apellido;
-    private List<Incidente> monitoreables;
+
+    @Column
+    private String categoria;
+
+    @OneToMany(mappedBy = "id_perfil_apertura", cascade = CascadeType.ALL)
+    private List<Incidente> incidentes;
+
+    @Column
     private Double puntaje;
 
-    public List<Incidente> getIncidentesFraudulentos() {
-        return monitoreables.stream()
-                .filter(Incidente::incidenteFraudulento) // Filtra por incidenteFraudulento() == true
-                .collect(Collectors.toList()); // Convierte el resultado en una lista
+    public Long getId_perfil() {
+        return id_perfil;
     }
 
-    public void actualizarPuntaje(){
+    public void setId_perfil(Long id_perfil) {
+        this.id_perfil = id_perfil;
+    }
+
+    public Confianza getConfianza() {
+        return confianza;
+    }
+
+    public void setConfianza(Confianza confianza) {
+        this.confianza = confianza;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public List<Incidente> getIncidentes() {
+        return incidentes;
+    }
+
+    public void setIncidentes(List<Incidente> incidentes) {
+        this.incidentes = incidentes;
+    }
+
+    public Double getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(Double puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public List<Incidente> getIncidentesFraudulentos() {
+        return incidentes.stream()
+                .filter(Incidente::incidenteFraudulento)
+                .collect(Collectors.toList());
+    }
+
+    public void actualizarPuntaje() {
         puntaje = puntaje - this.puntosARestar() + this.puntosASumar();
         this.actualizarConfianza();
     }
@@ -39,19 +85,19 @@ public class Perfil {
         }
     }
 
-    public boolean esConReserva(){
+    public boolean esConReserva() {
         return this.confianza == Confianza.ConReservas;
     }
 
-    private Double puntosASumar(){
-        if (monitoreables.size() - this.getIncidentesFraudulentos().size() > 0){
+    private Double puntosASumar() {
+        if (incidentes.size() - this.getIncidentesFraudulentos().size() > 0) {
             return 0.5;
-        } else {return 0.0;}
+        } else {
+            return 0.0;
+        }
     }
 
-    private Double puntosARestar(){
+    private Double puntosARestar() {
         return this.getIncidentesFraudulentos().size() * 0.2;
     }
-
-
 }

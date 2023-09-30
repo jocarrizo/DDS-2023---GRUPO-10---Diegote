@@ -3,20 +3,37 @@ package domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.List;
+import domain.Perfil;
 
 @Getter
 @Setter
+@Entity
 public class Comunidad {
+    @Id
+    @GeneratedValue
     private Long id_comunidad;
+
+    @Transient
     private List<Perfil> perfiles;
+
+    @Column
     private Double puntaje;
+
+    @Enumerated(EnumType.STRING)
     private Confianza confianza;
+
     public void actualizarPuntaje() {
-        puntaje =  perfiles.stream()
-                .mapToDouble(Perfil::getPuntaje)
-                .average()
-                .orElse(0.0); // Manejo de caso especial para evitar NaN
+        double sumaPuntajes = 0.0;
+        for (Perfil perfil : perfiles) {
+            sumaPuntajes += perfil.getPuntaje();
+        }
+        if (!perfiles.isEmpty()) {
+            puntaje = sumaPuntajes / perfiles.size();
+        } else {
+            puntaje = 0.0; // Manejo de caso especial para evitar NaN
+        }
     }
 
     public int usuariosConReserva() {

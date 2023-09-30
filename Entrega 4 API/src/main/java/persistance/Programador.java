@@ -18,7 +18,7 @@ public class Programador{
 
         CronTrigger trigger = TriggerBuilder.newTrigger()
                 .withIdentity("DispararActualizacion", "group1")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 13 * * SUN"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 13 ? * SUN"))
                 .forJob("ActualizarDB", "group1")
                 .build();
 
