@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import domain.Perfil;
 
@@ -16,13 +17,53 @@ public class Comunidad {
     private Long id_comunidad;
 
     @Transient
-    private List<Perfil> perfiles;
+    private List<Perfil> perfiles = new ArrayList<>();
 
     @Column
     private Double puntaje;
 
     @Enumerated(EnumType.STRING)
     private Confianza confianza;
+
+    public Comunidad(){}
+
+    public Comunidad(List<Perfil> perfiles, Double puntaje, Confianza confianza) {
+        this.perfiles = perfiles;
+        this.puntaje = puntaje;
+        this.confianza = confianza;
+    }
+
+    public Long getId_comunidad() {
+        return id_comunidad;
+    }
+
+    public void setId_comunidad(Long id_comunidad) {
+        this.id_comunidad = id_comunidad;
+    }
+
+    public List<Perfil> getPerfiles() {
+        return perfiles;
+    }
+
+    public void setPerfiles(List<Perfil> perfiles) {
+        this.perfiles = perfiles;
+    }
+
+    public Double getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(Double puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public Confianza getConfianza() {
+        return confianza;
+    }
+
+    public void setConfianza(Confianza confianza) {
+        this.confianza = confianza;
+    }
 
     public void actualizarPuntaje() {
         double sumaPuntajes = 0.0;

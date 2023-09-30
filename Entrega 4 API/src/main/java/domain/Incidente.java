@@ -27,6 +27,16 @@ public class Incidente {
     @JoinColumn(name = "id_perfil_cierre")
     private Perfil id_perfil_cierre;
 
+    public Incidente(){}
+
+    public Incidente(String observaciones, Date apertura, Date cierre, Perfil id_perfil_apertura, Perfil id_perfil_cierre) {
+        this.observaciones = observaciones;
+        this.apertura = apertura;
+        this.cierre = cierre;
+        this.id_perfil_apertura = id_perfil_apertura;
+        this.id_perfil_cierre = id_perfil_cierre;
+    }
+
     private int duracionIncidente() {
         long tiempoInicio = apertura.getTime();
         long tiempoCierre = cierre.getTime();

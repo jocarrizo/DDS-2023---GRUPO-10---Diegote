@@ -13,14 +13,13 @@ public class Perfil {
     @Enumerated(EnumType.STRING)
     private Confianza confianza;
 
-    @Column
-    private String categoria;
-
     @OneToMany(mappedBy = "id_perfil_apertura", cascade = CascadeType.ALL)
     private List<Incidente> incidentes;
 
     @Column
-    private Double puntaje;
+    private Double puntaje = 5.0;
+
+    public Perfil() {}
 
     public Long getId_perfil() {
         return id_perfil;
@@ -38,14 +37,6 @@ public class Perfil {
         this.confianza = confianza;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
     public List<Incidente> getIncidentes() {
         return incidentes;
     }
@@ -59,6 +50,12 @@ public class Perfil {
     }
 
     public void setPuntaje(Double puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public Perfil(Confianza confianza, List<Incidente> incidentes, Double puntaje) {
+        this.confianza = confianza;
+        this.incidentes = incidentes;
         this.puntaje = puntaje;
     }
 

@@ -57,7 +57,7 @@ public class Actualizador implements Job {
     }
 
     private void actualizarPerfilDB(EntityManager em, Double nuevoPuntaje, Confianza nuevaCategoria, Long id){
-        String sql = "UPDATE Perfil t SET t.puntaje = :nuevoPuntaje, t.categoria = :nuevaCategoria WHERE t.id_perfil = :id";
+        String sql = "UPDATE Perfil t SET t.puntaje = :nuevoPuntaje, t.confianza = :nuevaCategoria WHERE t.id_perfil = :id";
         Query query = em.createQuery(sql);
         query.setParameter("nuevoPuntaje", nuevoPuntaje);
         query.setParameter("nuevaCategoria", nuevaCategoria);

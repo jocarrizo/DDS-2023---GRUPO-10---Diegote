@@ -1,5 +1,7 @@
 package presentation;
 
+import domain.Comunidad;
+import domain.Perfil;
 import example.hibernate.utils.BDUtils;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
@@ -9,6 +11,8 @@ import presentation.dto.MisDatos;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 
 public class GetComunidadHandler implements Handler {
@@ -25,33 +29,33 @@ public class GetComunidadHandler implements Handler {
     @Override
     public void handle(@NotNull Context context) throws Exception {
 
-        Long id = context.pathParamAsClass("idComunidad", Long.class).get();
+        Long id = context.pathParamAsClass("id", Long.class).get();
 
-        MisDatos comunidad = this.comunidadPorId(id);
+        Comunidad comunidad = this.comunidadPorId(id);
 
         if (comunidad != null) {
             MisDatos misDatos = new MisDatos();
             misDatos.setId(id);
-            misDatos.setCategoria(comunidad.getCategoria());
+            misDatos.setCategoria(comunidad.getConfianza());
             misDatos.setPuntaje(comunidad.getPuntaje());
             context.status(200).json(misDatos);
-        }
-        context.status(404);
+        }else context.status(404);
 
     }
 
-    private MisDatos comunidadPorId(Long id){
+    private Comunidad comunidadPorId(Long id){
 
         EntityManager em = BDUtils.getEntityManager();
 
-        String hql = "SELECT c.id_comunidad, c.puntaje FROM Comunidad c WHERE c.id_comunidad = ?1";
+        String hql = "SELECT c FROM domain.Comunidad c WHERE c.id_comunidad = ?1";
 
-        Query query = em.createQuery(hql, MisDatos.class);
+        TypedQuery<Comunidad> query = em.createQuery(hql, Comunidad.class);
         query.setParameter(1, id);
 
-        MisDatos comunidad = (MisDatos) query.getSingleResult();
+        List<Comunidad> comunidad = query.getResultList();
 
+        BDUtils.commit(em);
         em.close();
-        return comunidad;
+        return comunidad.get(0);
     }
 }

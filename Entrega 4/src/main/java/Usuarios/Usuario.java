@@ -30,7 +30,11 @@ public class Usuario
     private String correo;
 
     public Usuario() {}
-
+    public Usuario(String contrasenia, Integer nro_telefono, String correo) {
+        this.contrasenia = contrasenia;
+        this.nro_telefono = nro_telefono;
+        this.correo = correo;
+    }
     public void addPerfil(Perfil p){
         if(!perfiles.contains(p)){
             perfiles.add(p);

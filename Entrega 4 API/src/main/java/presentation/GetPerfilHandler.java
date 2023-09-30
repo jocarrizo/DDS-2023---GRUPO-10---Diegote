@@ -11,6 +11,8 @@ import presentation.dto.MisDatos;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 
 public class GetPerfilHandler implements Handler {
@@ -27,35 +29,31 @@ public class GetPerfilHandler implements Handler {
     @Override
     public void handle(@NotNull Context context) throws Exception {
 
-        Long id = context.pathParamAsClass("idPerfil", Long.class).get();
+        Long id = context.pathParamAsClass("id", Long.class).get();
 
-        MisDatos perfil = perfilPorId(id);
+        Perfil perfil = perfilPorId(id);
 
         if (perfil != null) {
             MisDatos misDatos = new MisDatos();
             misDatos.setId(id);
-            misDatos.setCategoria(perfil.getCategoria());
+            misDatos.setCategoria(perfil.getConfianza());
             misDatos.setPuntaje(perfil.getPuntaje());
             context.status(200).json(misDatos);
-        }
-        context.status(404);
+        }else context.status(404);
     }
 
-    private MisDatos perfilPorId(Long id){
-
+    public Perfil perfilPorId(Long id) {
         EntityManager em = BDUtils.getEntityManager();
 
-        String hql = "SELECT p.id_perfil, p.categoria, p.puntaje FROM Perfil p WHERE p.id_perfil = ?1";
+        String hql = "SELECT p FROM domain.Perfil p WHERE p.id_perfil = ?1";
 
-        Query query = em.createQuery(hql, MisDatos.class);
+        TypedQuery<Perfil> query = em.createQuery(hql, Perfil.class);
         query.setParameter(1, id);
 
-        MisDatos perfil = (MisDatos) query.getSingleResult();
+        List<Perfil> perfiles = query.getResultList();
 
-        BDUtils.commit(em);
         em.close();
-
-        return perfil;
+        return perfiles.get(0);
     }
 }
 
