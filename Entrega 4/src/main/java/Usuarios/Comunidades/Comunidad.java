@@ -2,6 +2,7 @@ package Usuarios.Comunidades;
 
 import Servicios.Incidente;
 import Servicios.Monitoreable;
+import Usuarios.Confianza;
 import Usuarios.Perfil;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,10 +22,15 @@ public class Comunidad {
     @GeneratedValue
     @Column (name = "ID")
     private long id_comunidad;
+    @Column
+    private Double puntaje;
+    @Enumerated(EnumType.STRING)
+    private Confianza confianza;
 
     @OneToMany(mappedBy = "comunidad")
     private List<comunidad_x_perfil> miembros = new ArrayList<comunidad_x_perfil>();
 
+    //TODO
     @Transient
     private List<Monitoreable> serviciosDeInteres;
 
@@ -33,9 +39,9 @@ public class Comunidad {
             orphanRemoval = true )
     private List<Incidente> incidentes;
 
+    //TODO
     @Transient
     private List<Perfil> afectados;
-
 
     public Comunidad(){}
 
@@ -60,19 +66,6 @@ public class Comunidad {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Comunidad comunidad = (Comunidad) o;
-        return id_comunidad == comunidad.id_comunidad && Objects.equals(miembros, comunidad.miembros) && Objects.equals(serviciosDeInteres, comunidad.serviciosDeInteres) && Objects.equals(incidentes, comunidad.incidentes) && Objects.equals(afectados, comunidad.afectados);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id_comunidad, miembros, serviciosDeInteres, incidentes, afectados);
-    }
-
     public void removeMiembro(Perfil s){
         for (Iterator<comunidad_x_perfil> iterator = miembros.iterator();
              iterator.hasNext(); ) {
@@ -87,6 +80,21 @@ public class Comunidad {
             }
         }
     }
+
     public void notificarIncidente(Incidente I){};
+
     public void cerrarIncidente(Incidente I){};
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comunidad comunidad = (Comunidad) o;
+        return id_comunidad == comunidad.id_comunidad && Objects.equals(miembros, comunidad.miembros) && Objects.equals(serviciosDeInteres, comunidad.serviciosDeInteres) && Objects.equals(incidentes, comunidad.incidentes) && Objects.equals(afectados, comunidad.afectados);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_comunidad, miembros, serviciosDeInteres, incidentes, afectados);
+    }
+
 }
