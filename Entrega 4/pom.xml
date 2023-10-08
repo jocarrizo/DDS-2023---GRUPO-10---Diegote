@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <name>TPA_DDS_2023</name>
-  <url>http://maven.apache.org</url>
+  <url>https://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -53,6 +53,25 @@
       <artifactId>junit</artifactId>
       <version>4.13.1</version>
       <scope>test</scope>
+    </dependency>
+
+    <!-- Firebase -->
+    <dependency>
+      <groupId>com.google.firebase</groupId>
+      <artifactId>firebase-admin</artifactId>
+      <version>9.2.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.auth</groupId>
+      <artifactId>google-auth-library-oauth2-http</artifactId>
+      <version>0.19.0</version>
+    </dependency>
+
+    <dependency>
+    <groupId>com.google.cloud</groupId>
+    <artifactId>google-cloud-firestore</artifactId>
+    <version>3.13.0</version>
     </dependency>
 
     <!-- Auth0 -->
@@ -102,6 +121,20 @@
       <groupId>commons-chain</groupId>
       <artifactId>commons-chain</artifactId>
       <version>1.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-slf4j-provider</artifactId>
+      <version>3.6.3</version>
+    </dependency>
+
+
+    <!-- https://mvnrepository.com/artifact/io.grpc/grpc-protobuf -->
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-protobuf</artifactId>
+      <version>1.58.0</version>
     </dependency>
 
   </dependencies>
