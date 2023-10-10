@@ -99,7 +99,6 @@
           <entry name="$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.4.5/logback-classic-1.4.5.jar" />
           <entry name="$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.4.5/logback-core-1.4.5.jar" />
         </processorPath>
-        <module name="TPA_DDS_2023" />
       </profile>
     </annotationProcessing>
   </component>

@@ -1,3 +1,4 @@
+/*
 package presentation;
 
 import domain.Comunidad;
@@ -59,3 +60,4 @@ public class GetComunidadHandler implements Handler {
         return comunidad.get(0);
     }
 }
+*/

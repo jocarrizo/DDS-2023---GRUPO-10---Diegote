@@ -1,4 +1,4 @@
-package presentation;
+/*package presentation;
 
 import domain.Perfil;
 import example.hibernate.utils.BDUtils;
@@ -55,5 +55,5 @@ public class GetPerfilHandler implements Handler {
         em.close();
         return perfiles.get(0);
     }
-}
+}*/
 
