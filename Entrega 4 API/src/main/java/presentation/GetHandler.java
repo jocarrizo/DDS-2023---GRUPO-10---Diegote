@@ -1,5 +1,7 @@
 package presentation;
 
+import domain.Comunidad;
+import domain.Confianza;
 import domain.Perfil;
 import example.hibernate.utils.BDUtils;
 import io.javalin.http.Context;
@@ -15,8 +17,8 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 
-private abstract class GetEntityHandler<T> implements Handler {
-
+public abstract class GetEntityHandler<T> implements Handler {
+    private String hql;
     private final Class<T> entityClass;
     private final String pathParameterName;
 
@@ -55,7 +57,7 @@ private abstract class GetEntityHandler<T> implements Handler {
     private T entityById(Long id){
         EntityManager em = BDUtils.getEntityManager();
 
-        TypedQuery<T> query = em.createQuery(hql, T);
+        TypedQuery<T> query = em.createQuery(hql, T.class);
         query.setParameter(1, id);
 
         List<T> entities = query.getResultList();
@@ -64,13 +66,13 @@ private abstract class GetEntityHandler<T> implements Handler {
         return entities.get(0);
     }
 
-    protected abstract String getCategoria(T entity);
+    protected abstract Confianza getCategoria(T entity);
 
-    protected abstract int getPuntaje(T entity);
+    protected abstract Double getPuntaje(T entity);
 }
 
 
-public class GetPerfilHandler extends GetEntityHandler<Perfil> {
+class GetPerfilHandler extends GetEntityHandler<Perfil> {
 
     private String hql = "SELECT p FROM domain.Perfil p WHERE p.id_perfil = ?1";
 
@@ -80,17 +82,17 @@ public class GetPerfilHandler extends GetEntityHandler<Perfil> {
 
 
     @Override
-    protected String getCategoria(Perfil entity) {
+    protected Confianza getCategoria(Perfil entity) {
         return entity.getConfianza();
     }
 
     @Override
-    protected int getPuntaje(Perfil entity) {
+    protected Double getPuntaje(Perfil entity) {
         return entity.getPuntaje();
     }
 }
 
-public class GetComunidadHandler extends GetEntityHandler<Comunidad> {
+class GetComunidadHandler extends GetEntityHandler<Comunidad> {
 
     private String hql = "SELECT c FROM domain.Comunidad c WHERE c.id_comunidad = ?1";
 
@@ -100,12 +102,12 @@ public class GetComunidadHandler extends GetEntityHandler<Comunidad> {
 
 
     @Override
-    protected String getCategoria(Comunidad entity) {
+    protected Confianza getCategoria(Comunidad entity) {
         return entity.getConfianza();
     }
 
     @Override
-    protected int getPuntaje(Comunidad entity) {
+    protected Double getPuntaje(Comunidad entity) {
         return entity.getPuntaje();
     }
 }
