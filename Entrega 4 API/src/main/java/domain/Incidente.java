@@ -86,11 +86,11 @@ public class Incidente {
         this.cierre = cierre;
     }
 
-    public Perfil getId_perfil_apertura() {
+    public Long getId_perfil_apertura() {
         return id_perfil_apertura;
     }
 
-    public void setId_perfil_apertura(Perfil id_perfil_apertura) {
+    public void setId_perfil_apertura(Long id_perfil_apertura) {
         this.id_perfil_apertura = id_perfil_apertura;
     }
 /*
@@ -107,7 +107,7 @@ public class Incidente {
         return id_perfil_cierre;
     }
 
-    public void setId_perfil_cierre(Perfil id_perfil_cierre) {
+    public void setId_perfil_cierre(Long id_perfil_cierre) {
         this.id_perfil_cierre = id_perfil_cierre;
     }
 

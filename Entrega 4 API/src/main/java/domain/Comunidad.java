@@ -88,7 +88,7 @@ public class Comunidad {
                 .filter(Perfil::esConReserva).count(); // Convierte el resultado en una lista
     }
 
-    private void actualizarConfianza() {
+    public void actualizarConfianza() {
         if (puntaje > 5) {
             confianza = Confianza.ConfiableNivel2;
         } else if (puntaje > 3) {

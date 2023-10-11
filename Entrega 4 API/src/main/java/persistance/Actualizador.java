@@ -1,5 +1,6 @@
 package persistance;
 
+import domain.Comunidad;
 import domain.Confianza;
 import domain.Incidente;
 import domain.Perfil;
@@ -46,8 +47,16 @@ public class Actualizador implements Job {
                 perfil.actualizarPuntaje();
                 actualizarPerfilDB(em, perfil.getPuntaje(), perfil.getConfianza(), perfil.getId_perfil());
             }
+            
+            List<Comunidad> comunidades = getComunidades(em);
 
-            actualizarComunidadDB(em);
+            for (Comunidad comunidad : comunidades){
+                comunidad.actualizarPuntaje();
+                comunidad.actualizarConfianza();
+                actualizarComunidadDB(em, comunidad.getPuntaje(), comunidad.getConfianza(), comunidad.getId_comunidad());
+
+            }
+
 
             BDUtils.commit(em);
 
@@ -69,12 +78,11 @@ public class Actualizador implements Job {
 
     public void actualizarPerfilDB(EntityManager em, Double nuevoPuntaje, Confianza nuevaCategoria, Long id){
         String sql = "UPDATE Perfil t SET t.puntaje = :nuevoPuntaje, t.confianza = :nuevaCategoria WHERE t.id_perfil = :id";
-        Query query = em.createQuery(sql);
-        query.setParameter("nuevoPuntaje", nuevoPuntaje);
-        query.setParameter("nuevaCategoria", nuevaCategoria);
-        query.setParameter("id", id);
-
-        query.executeUpdate();
+        em.createQuery(sql)
+            .setParameter("nuevoPuntaje", nuevoPuntaje)
+            .setParameter("nuevaCategoria", nuevaCategoria)
+            .setParameter("id", id)
+            .executeUpdate();
     }
 
     public List<Perfil> getPerfiles(EntityManager em, List<Incidente> incidentes){
@@ -108,7 +116,7 @@ public class Actualizador implements Job {
             perfil.setIncidentes(incidentesFiltrados);
         }
 
-        return query.getResultList();
+        return perfiles;
     }
 
     public List<Incidente> getIncidentes(EntityManager em) {
