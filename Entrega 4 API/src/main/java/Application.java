@@ -1,4 +1,3 @@
-import example.hibernate.utils.BDUtils;
 import io.javalin.Javalin;
 import io.javalin.openapi.plugin.OpenApiConfiguration;
 import io.javalin.openapi.plugin.OpenApiPlugin;
@@ -10,14 +9,6 @@ import presentation.GetPerfilHandler;
 
 import persistance.Programador;
 
-import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.metamodel.Metamodel;
-import java.util.List;
-import java.util.Map;
 
 public class Application {
 
@@ -32,11 +23,6 @@ public class Application {
 
         app.get("/api/perfil/{id}", new GetPerfilHandler());
         app.get("/api/comunidad/{id}", new GetComunidadHandler());
-
-        EntityManager em = BDUtils.getEntityManager();
-        BDUtils.comenzarTransaccion(em);
-
-        em.close();
 
         Programador.programar();
     }

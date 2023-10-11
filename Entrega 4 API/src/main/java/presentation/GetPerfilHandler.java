@@ -5,12 +5,9 @@ import example.hibernate.utils.BDUtils;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import io.javalin.openapi.*;
-import org.eclipse.jetty.server.session.Session;
 import org.jetbrains.annotations.NotNull;
-import presentation.dto.MisDatos;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -23,18 +20,14 @@ public class GetPerfilHandler implements Handler {
             pathParams = @OpenApiParam(name = "id", description = "ID perfil a buscar", required = true, type = Long.class)
     )
     @Override
-    public void handle(@NotNull Context context) throws Exception {
+    public void handle(@NotNull Context context) {
 
         Long id = context.pathParamAsClass("id", Long.class).get();
 
         Perfil perfil = perfilPorId(id);
 
         if (perfil != null) {
-            MisDatos misDatos = new MisDatos();
-            misDatos.setId(id);
-            misDatos.setCategoria(perfil.getConfianza());
-            misDatos.setPuntaje(perfil.getPuntaje());
-            context.status(200).json(misDatos);
+            context.status(200).json(perfil);
         }else context.status(404);
     }
 
@@ -53,3 +46,20 @@ public class GetPerfilHandler implements Handler {
     }
 }
 
+/*
+public class GetPerfilHandler extends GetEntityHandler<Perfil> {
+    @OpenApi(
+            path = "/api/pathParameterName/{id}",
+            methods = {HttpMethod.GET},
+            pathParams = {
+                    @OpenApiParam(name = "id", description = "ID de la entidad a buscar", required = true, type = Long.class)
+            }
+    )
+    @Override
+    public void handle(@NotNull Context context) {
+        super();
+    }
+    public GetPerfilHandler() {
+        super(Perfil.class, "perfil");
+    }
+}*/

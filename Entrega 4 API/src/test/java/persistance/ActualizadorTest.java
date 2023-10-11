@@ -4,17 +4,10 @@ import domain.Comunidad;
 import domain.Incidente;
 import domain.Perfil;
 import example.hibernate.utils.BDUtils;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
-
 import javax.persistence.EntityManager;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.quartz.JobBuilder.newJob;
 
 class ActualizadorTest {
 

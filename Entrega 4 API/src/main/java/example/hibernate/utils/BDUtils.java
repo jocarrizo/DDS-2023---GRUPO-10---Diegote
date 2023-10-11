@@ -14,8 +14,7 @@ public class BDUtils {
     }
 
     public static EntityManager getEntityManager() {
-        EntityManager em = factory.createEntityManager();
-        return em;
+        return factory.createEntityManager();
     }
 
     public static void comenzarTransaccion(EntityManager em) {

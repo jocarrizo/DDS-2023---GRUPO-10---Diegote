@@ -6,24 +6,14 @@ import domain.Incidente;
 import domain.Perfil;
 
 import lombok.SneakyThrows;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.Session;
-import org.hibernate.Query;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 
 
@@ -33,15 +23,14 @@ public class Actualizador implements Job {
 
     @SneakyThrows
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
+    public void execute(JobExecutionContext context) {
 
         EntityManager em = BDUtils.getEntityManager();
         BDUtils.comenzarTransaccion(em);
 
-
         try {
             List<Incidente> incidentes = getIncidentes(em);
-            List<Perfil> perfiles = getPerfiles(em, incidentes);
+            List<Perfil>    perfiles = getPerfiles(em, incidentes);
 
             for (Perfil perfil : perfiles) {
                 perfil.actualizarPuntaje();
@@ -62,7 +51,7 @@ public class Actualizador implements Job {
 
         } catch (Exception e) {
             BDUtils.rollback(em);
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         em.close();
     }
@@ -108,7 +97,7 @@ public class Actualizador implements Job {
 
             List<Incidente> incidentesFiltrados = new ArrayList<>();
             for (Incidente incidente : incidentes) {
-                if (incidente.getId_perfil_apertura() == id_perfil || incidente.getId_perfil_apertura() == id_perfil) {
+                if (incidente.getId_perfil_apertura().equals(id_perfil) || incidente.getId_perfil_apertura().equals(id_perfil)) {
                     incidentesFiltrados.add(incidente);
                 }
             }
@@ -120,30 +109,24 @@ public class Actualizador implements Job {
     }
 
     public List<Incidente> getIncidentes(EntityManager em) {
-
-        List<Incidente> res = new ArrayList<>();
-
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DAY_OF_MONTH, -((calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7));
         Date ultimoDomingo = calendar.getTime();
 
+        String hql = "SELECT i FROM Incidente i " +
+                "WHERE i.apertura >= ?1 " +
+                "AND (id_perfil_apertura is not null or id_perfil_cierre is not null)";
 
-        String hql = "SELECT i FROM Incidente i WHERE i.apertura >= ?1 AND (id_perfil_apertura is not null or id_perfil_cierre is not null)";
-
-        List<Incidente> resultados =
-                em.createQuery(hql, Incidente.class).setParameter(1,ultimoDomingo).
+        return em.createQuery(hql, Incidente.class).
+                setParameter(1,ultimoDomingo).
                 getResultList();
-
-        return resultados;
     }
 
     public List<Comunidad> getComunidades(EntityManager em) {
-
         String hql = "SELECT c FROM Comunidad c";
 
         return em.createQuery(hql, Comunidad.class).getResultList();
-
     }
 }
 
