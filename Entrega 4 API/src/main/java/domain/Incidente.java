@@ -2,6 +2,7 @@
 package domain;
 
 import javax.persistence.*;
+import javax.transaction.TransactionScoped;
 import java.util.Date;
 
 @Entity
@@ -19,13 +20,20 @@ public class Incidente {
     @Column
     private Date cierre;
 
+    @Column
+    private long id_perfil_apertura;
+    @Column
+    private long id_perfil_cierre;
+
+/*
     @ManyToOne
     @JoinColumn(name = "id_perfil_apertura")
-    private Perfil id_perfil_apertura;
+    private Perfil perfil_apertura;
 
     @OneToOne
     @JoinColumn(name = "id_perfil_cierre")
-    private Perfil id_perfil_cierre;
+    private Perfil perfil_cierre;
+*/
 
     public Incidente(){}
 
@@ -33,8 +41,10 @@ public class Incidente {
         this.observaciones = observaciones;
         this.apertura = apertura;
         this.cierre = cierre;
-        this.id_perfil_apertura = id_perfil_apertura;
-        this.id_perfil_cierre = id_perfil_cierre;
+//        this.perfil_apertura = id_perfil_apertura;
+//        this.perfil_cierre = id_perfil_cierre;
+        this.id_perfil_apertura = id_perfil_apertura.getId_perfil();
+        this.id_perfil_cierre = id_perfil_apertura.getId_perfil();
     }
 
     private int duracionIncidente() {
@@ -83,8 +93,17 @@ public class Incidente {
     public void setId_perfil_apertura(Perfil id_perfil_apertura) {
         this.id_perfil_apertura = id_perfil_apertura;
     }
+/*
+    public Perfil perfil_apertura() {
+        return perfil_apertura;
+    }
 
-    public Perfil getId_perfil_cierre() {
+    public void set_perfil_apertura(Perfil perfil_apertura) {
+        this.perfil_apertura = perfil_apertura;
+    }
+*/
+
+    public Long getId_perfil_cierre() {
         return id_perfil_cierre;
     }
 

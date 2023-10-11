@@ -1,3 +1,4 @@
+/*
 package presentation;
 
 import domain.Comunidad;
@@ -111,6 +112,7 @@ class GetComunidadHandler extends GetEntityHandler<Comunidad> {
         return entity.getPuntaje();
     }
 }
+*/
 
 
 

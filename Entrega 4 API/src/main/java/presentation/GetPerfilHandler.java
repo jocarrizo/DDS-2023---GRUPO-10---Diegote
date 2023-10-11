@@ -1,4 +1,4 @@
-/*package presentation;
+package presentation;
 
 import domain.Perfil;
 import example.hibernate.utils.BDUtils;
@@ -21,10 +21,6 @@ public class GetPerfilHandler implements Handler {
             path = "/api/perfil/{id}",
             methods = {HttpMethod.GET},
             pathParams = @OpenApiParam(name = "id", description = "ID perfil a buscar", required = true, type = Long.class)
-            //responses = {
-            //        @OpenApiResponse(status = "200", content = @OpenApiContent(from = MisDatos.class)),
-    //        @OpenApiResponse(status = "404" )
-            //        }
     )
     @Override
     public void handle(@NotNull Context context) throws Exception {
@@ -55,5 +51,5 @@ public class GetPerfilHandler implements Handler {
         em.close();
         return perfiles.get(0);
     }
-}*/
+}
 

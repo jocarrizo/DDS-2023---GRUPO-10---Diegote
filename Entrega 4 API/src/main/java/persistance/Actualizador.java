@@ -5,6 +5,10 @@ import domain.Incidente;
 import domain.Perfil;
 
 import lombok.SneakyThrows;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.Session;
+import org.hibernate.Query;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -13,9 +17,14 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
+
 
 import example.hibernate.utils.BDUtils;
 
@@ -34,7 +43,6 @@ public class Actualizador implements Job {
             List<Perfil> perfiles = getPerfiles(em, incidentes);
 
             for (Perfil perfil : perfiles) {
-
                 perfil.actualizarPuntaje();
                 actualizarPerfilDB(em, perfil.getPuntaje(), perfil.getConfianza(), perfil.getId_perfil());
             }
@@ -50,13 +58,16 @@ public class Actualizador implements Job {
         em.close();
     }
 
-    private void actualizarComunidadDB(EntityManager em){
-        String sql = "UPDATE comunidad c " +
-                "SET c.puntaje = (SELECT AVG(p.puntaje) FROM perfil p WHERE p.id_perfil = c.id_perfil)";
-        em.createNativeQuery(sql).executeUpdate();
+    public void actualizarComunidadDB(EntityManager em, Double nuevoPuntaje, Confianza nuevaCategoria, Long id){
+        String sql = "UPDATE Comunidad c SET c.puntaje = :nuevoPuntaje, c.confianza = :nuevaCategoria WHERE c.id_comunidad = :id";
+        em.createQuery(sql)
+                .setParameter("nuevoPuntaje", nuevoPuntaje)
+                .setParameter("nuevaCategoria", nuevaCategoria)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
-    private void actualizarPerfilDB(EntityManager em, Double nuevoPuntaje, Confianza nuevaCategoria, Long id){
+    public void actualizarPerfilDB(EntityManager em, Double nuevoPuntaje, Confianza nuevaCategoria, Long id){
         String sql = "UPDATE Perfil t SET t.puntaje = :nuevoPuntaje, t.confianza = :nuevaCategoria WHERE t.id_perfil = :id";
         Query query = em.createQuery(sql);
         query.setParameter("nuevoPuntaje", nuevoPuntaje);
@@ -66,41 +77,66 @@ public class Actualizador implements Job {
         query.executeUpdate();
     }
 
-    private List<Perfil> getPerfiles(EntityManager em, List<Incidente> incidentes){
+    public List<Perfil> getPerfiles(EntityManager em, List<Incidente> incidentes){
 
         List<Long> listaPerfiles = new ArrayList<>();
 
         for (Incidente incidente : incidentes) {
-            listaPerfiles.add(incidente.getId_perfil_apertura().getId_perfil());
-            listaPerfiles.add(incidente.getId_perfil_cierre().getId_perfil());
+            listaPerfiles.add(incidente.getId_perfil_apertura());
+            listaPerfiles.add(incidente.getId_perfil_cierre());
         }
 
-        String hql = "SELECT p.id_perfil, p.confianza, p.puntaje, p.categoria FROM Perfil p " +
+        String hql = "SELECT p FROM Perfil p " +
                 "WHERE p.id_perfil in :listaPerfiles";
 
-        Query query = em.createQuery(hql, Perfil.class);
-        query.setParameter("listaPerfiles", listaPerfiles);
+        List<Perfil> perfiles =
+                em.createQuery(hql, Perfil.class).setParameter("listaPerfiles",listaPerfiles)
+                        .getResultList();
 
-        System.out.println(query.getResultList());
+
+        for (Perfil perfil: perfiles){
+
+            Long id_perfil = perfil.getId_perfil();
+
+            List<Incidente> incidentesFiltrados = new ArrayList<>();
+            for (Incidente incidente : incidentes) {
+                if (incidente.getId_perfil_apertura() == id_perfil || incidente.getId_perfil_apertura() == id_perfil) {
+                    incidentesFiltrados.add(incidente);
+                }
+            }
+
+            perfil.setIncidentes(incidentesFiltrados);
+        }
 
         return query.getResultList();
     }
 
-    private List<Incidente> getIncidentes(EntityManager em) {
+    public List<Incidente> getIncidentes(EntityManager em) {
 
-        LocalDateTime ahora = LocalDateTime.now();
-        LocalDateTime ultimoDomingo = ahora.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).withHour(13).withMinute(0).withSecond(0);
+        List<Incidente> res = new ArrayList<>();
 
-        String hql = "SELECT i.id_incidente, i.apertura, i.cierre, i.id_perfil_apertura, i.id_perfil_cierre FROM Incidente i WHERE i.apertura >= ?1";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_MONTH, -((calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7));
+        Date ultimoDomingo = calendar.getTime();
 
-        Query query = em.createQuery(hql, Incidente.class);
-        query.setParameter(1, ultimoDomingo);
 
-        return query.getResultList();
+        String hql = "SELECT i FROM Incidente i WHERE i.apertura >= ?1 AND (id_perfil_apertura is not null or id_perfil_cierre is not null)";
+
+        List<Incidente> resultados =
+                em.createQuery(hql, Incidente.class).setParameter(1,ultimoDomingo).
+                getResultList();
+
+        return resultados;
     }
 
+    public List<Comunidad> getComunidades(EntityManager em) {
 
+        String hql = "SELECT c FROM Comunidad c";
 
+        return em.createQuery(hql, Comunidad.class).getResultList();
+
+    }
 }
 
 

@@ -1,4 +1,3 @@
-/*
 package presentation;
 
 import domain.Comunidad;
@@ -22,10 +21,6 @@ public class GetComunidadHandler implements Handler {
             path = "/api/comunidad/{id}",
             methods = {HttpMethod.GET},
             pathParams = @OpenApiParam(name = "id", description = "ID comunidad a buscar", required = true, type = Integer.class)
-            //responses = {
-            //        @OpenApiResponse(status = "200", content = @OpenApiContent(from = MisDatos.class)),
-    //        @OpenApiResponse(status = "404" )
-            //       }
     )
     @Override
     public void handle(@NotNull Context context) throws Exception {
@@ -60,4 +55,3 @@ public class GetComunidadHandler implements Handler {
         return comunidad.get(0);
     }
 }
-*/

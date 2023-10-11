@@ -1,6 +1,7 @@
 package domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,9 @@ public class Perfil {
 
     @OneToMany(mappedBy = "id_perfil_apertura", cascade = CascadeType.ALL)
     private List<Incidente> incidentes;
+
+    @ManyToMany(mappedBy = "perfiles")
+    private List<Comunidad> comunidades = new ArrayList<>();
 
     @Column
     private Double puntaje = 5.0;

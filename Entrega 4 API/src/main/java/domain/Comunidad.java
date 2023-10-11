@@ -16,7 +16,12 @@ public class Comunidad {
     @GeneratedValue
     private Long id_comunidad;
 
-    @Transient
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "Comunidad_x_Perfil",
+            joinColumns = { @JoinColumn(name = "comunidad_id") },
+            inverseJoinColumns = { @JoinColumn(name = "perfil_id") }
+    )
     private List<Perfil> perfiles = new ArrayList<>();
 
     @Column
