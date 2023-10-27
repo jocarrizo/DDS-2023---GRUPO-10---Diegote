@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carga Masiva de Datos</title>
+    <link rel="stylesheet" href="resources/CSS/styles.css">
+</head>
+<body>
+	<nav class="navbar">
+        <ul class="nav-list">
+            <li><a href="listado_incidentes/listado_incidentes.html">Listado de Incidentes</a></li>
+            <li><a href="apertura_incidente.html">Apertura de Incidentes</a></li>
+            <li><a href="carga_datos.html">Carga Masiva de Datos</a></li>
+            <li><a href="login.html">Iniciar Sesión</a></li>
+        </ul>
+    </nav>
+   <form class="upload-form">
+        <h2>Carga Masiva de Datos</h2>
+        <label for="csvFile">Selecciona un archivo CSV</label>
+        <input type="file" id="csvFile" accept=".csv" required>
+        <div id="preview"></div>
+        <button type="submit">Cargar Datos</button>
+	</form>
+</body>
+</html>

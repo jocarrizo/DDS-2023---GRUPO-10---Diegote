@@ -5,14 +5,36 @@
     "version": ""
   },
   "paths": {
-    "/api/pathParameterName/{id}": {
+    "/api/comunidad/{id}": {
       "get": {
         "tags": [],
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID de la entidad a buscar",
+            "description": "ID comunidad a buscar",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {},
+        "deprecated": false,
+        "security": []
+      }
+    },
+    "/api/perfil/{id}": {
+      "get": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID perfil a buscar",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
