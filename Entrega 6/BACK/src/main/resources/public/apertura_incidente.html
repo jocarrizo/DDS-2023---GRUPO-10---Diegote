@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apertura de Incidentes</title>
+    <link rel="stylesheet" href="resources/CSS/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <yus-html src="navbar.html"></yus-html>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a class="btn btn-danger btn-sm" href="apertura_incidente.html">
+            <p class="lead">Apertura de incidentes</p>
+        </a>
+        <a class="btn btn-outline-danger btn-sm" href="cierre_incidente.html">
+            <p class="lead">Cierre de incidentes</p>
+        </a>
+
+    </div>
+
+    <form class="incident-form" id="aperturaIncidenteForm">
+        <h2 class="h3 mb-3 fw-normal">Apertura de Incidente</h2>
+        <input type="text" id="usuario" required placeholder="Usuario">
+        <textarea class="mt-1 w-100 py-2" id="observaciones" rows="4" required placeholder="  Observaciones"></textarea>
+        <button class="mt-1 w-100 py-2 btn btn-danger" type="submit">Abrir Incidente</button>
+    </form>
+
+    <script src="resources/JS/script.js"></script>
+</body>
+</html>
