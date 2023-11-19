@@ -5,11 +5,9 @@ import io.javalin.openapi.plugin.OpenApiPlugin;
 import io.javalin.openapi.plugin.swagger.SwaggerConfiguration;
 import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
 import org.quartz.*;
-import presentation.GetComunidadHandler;
-import presentation.GetPerfilHandler;
+import presentation.*;
 
 import persistance.Programador;
-import presentation.LoginHandler;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -38,8 +36,10 @@ public class Application {
         System.out.println("Check out Swagger UI docs at http://localhost:4567/swagger");
 
 
-        app.get("/api/perfil/{id}", new GetPerfilHandler());
-        app.get("/api/comunidad/{id}", new GetComunidadHandler());
+        app.get("/api/perfil/{id}",     new GetPerfilHandler());
+        app.get("/api/comunidad/{id}",  new GetComunidadHandler());
+        app.get("api/Entidades", new GetEntidadesHandler());
+        app.get("api/Establecimientos/{id}", new GetEstablecimientosHandler());
 
         app.post("/api/login", new LoginHandler());
 

@@ -22,7 +22,7 @@ public class Entidad {
     @Column(name="NOMBRE")
     private String nombre;
 
-    @OneToMany (mappedBy = "entidad")
+    @OneToMany ( mappedBy = "entidad")
     private List<Establecimiento> establecimientos;
 
     @Enumerated(EnumType.STRING)

@@ -40,6 +40,6 @@
             //Manejo de errores
             console.error("Error: ",error)
         })
-    },
+    }
     }
 })
