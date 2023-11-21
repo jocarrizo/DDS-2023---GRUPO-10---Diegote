@@ -11,11 +11,19 @@
     <yus-html src="/navbar.html"></yus-html>
     <form class="upload-form">
         <h2>Carga Masiva de Datos</h2>
-        <label class="btn btn-danger btn-sm" for="csvFile">Selecciona un archivo CSV</label>
-        <input type="file" id="csvFile" accept=".csv" required>
+        
+        <label class="btn btn-danger btn-sm" for="EntidadescsvFile" id="entidadesBtn">Cargar Entidades</label>
+        <input type="file" id="EntidadescsvFile" accept=".csv" required onchange="handleFileSelect('EntidadescsvFile', 'entidadesLabel', 'organismosLabel', 'entidadesBtn', 'organismosBtn')">
+        <span id="entidadesLabel"></span>
+
+        <label class="btn btn-danger btn-sm" for="OrganismoscsvFile" id="organismosBtn">Cargar Organismos</label>
+        <input type="file" id="OrganismoscsvFile" accept=".csv" required onchange="handleFileSelect('OrganismoscsvFile', 'organismosLabel', 'entidadesLabel', 'organismosBtn', 'entidadesBtn')">
+        <span id="organismosLabel"></span>
+        
         <div id="preview"></div>
-        <button class="btn btn-outline-danger btn-sm" type="submit">Cargar Datos</button>
-	</form>
+        <button class="btn btn-outline-danger btn-sm" type="submit" id="submitButton" style="display: none;">Cargar Datos</button>
+    </form>
+
     <script src="resources/JS/script.js"></script>
 </body>
 </html>
