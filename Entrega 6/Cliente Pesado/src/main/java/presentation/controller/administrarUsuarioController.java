@@ -1,9 +1,6 @@
-package presentation;
+package presentation.controller;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import domain.Usuarios.Comunidades.Comunidad;
 import example.hibernate.utils.BDUtils;
@@ -23,28 +20,26 @@ public class administrarUsuarioController implements Handler {
 
         String IDSESION = ctx.body();
 
-        List<RolComunidad> roles = null;
+        List<RolComunidad> comunidades = new ArrayList<>();
 
-        List<comunidad_x_perfil> comunidades = comunidad_x_perfilPorId(IDSESION);
-        for (comunidad_x_perfil comunidad : comunidades){
-            roles.add(new RolComunidad(comunidad.getComunidad().getId_comunidad(), comunidad.isEsAfectado()));
+        List<comunidad_x_perfil> comunidades_crudas = comunidad_x_perfilPorId(Long.valueOf(IDSESION));
+        for (comunidad_x_perfil comunidad : comunidades_crudas){
+            comunidades.add(new RolComunidad(comunidad.getComunidad().getId_comunidad(), comunidad.isEsAfectado()));
         }
 
 
         Map<String, Object> model = new HashMap<>();
-        model.put("comunidades", roles);
+        model.put("comunidades", comunidades);
         ctx.render("administrarUsuario.hbs", model);
     }
 
     private List<comunidad_x_perfil> comunidad_x_perfilPorId(Long id){
         EntityManager em = BDUtils.getEntityManager();
 
-        //PEDIR AYUDA A JOACO, EL FILTRO ESTA MAL Y DESPUES NO SE SI LA QUERY ESTA BIEN
         String hql = "SELECT c FROM comunidad_x_perfil c WHERE c.comunidad = ?1";
 
         TypedQuery<comunidad_x_perfil> query = em.createQuery(hql, comunidad_x_perfil.class);
         query.setParameter(1, id);
-
         List<comunidad_x_perfil> result = query.getResultList();
 
         em.close();

@@ -1,14 +1,20 @@
 package presentation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import example.hibernate.utils.BDUtils;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
 
 public class administrarUsuarioHandler implements Handler {
+
+    String sql = "UPDATE Comunidad_X_Perfil SET esObservador = NOT esObservador, esAfectado = NOT esAfectado " +
+            "WHERE id_perfil = :id_perfil AND id_comunidad = :id_comunidad";
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
         String requestBody = ctx.body();
@@ -25,21 +31,36 @@ public class administrarUsuarioHandler implements Handler {
         data.remove("IDSESION");
 
         // Crear un nuevo mapa para almacenar las claves con valores verdaderos
-        Map<String, Boolean> rolesVerdaderos = new HashMap<>();
+        Map<String, Boolean> rolesACambiar = new HashMap<>();
 
         // Filtrar las claves con valores verdaderos
         for (Map.Entry<String, Boolean> entry : data.entrySet()) {
             if (entry.getValue()) {
-                rolesVerdaderos.put(entry.getKey(), true);
+                rolesACambiar.put(entry.getKey(), true);
             }
         }
 
+        EntityManager em = BDUtils.getEntityManager();
+        BDUtils.comenzarTransaccion(em);
+        //rolesACambiar.getKey() -> devuelve la comunidad donde tenemos que cambiar el rol del usuario
+        try {
 
-        // UPDATE DE LOS ROLES DE LOS USUARIOS EN CADA COMUNIDAD
+            for (Map.Entry<String, Boolean> entry : rolesACambiar.entrySet()) {
+                Long comunidad = Long.valueOf(entry.getKey());
+                Query query = em.createNativeQuery(sql);
+                query.setParameter("id_perfil", IDSESION);
+                query.setParameter("id_comunidad", comunidad);
+                query.executeUpdate();
+            }
 
-        // Enviar una respuesta al cliente
-        ctx.status(200).result("Roles actualizados exitosamente"); // Puedes enviar la respuesta que desees al frontend
-    }
+            BDUtils.commit(em);
+            ctx.status(200).result("Roles actualizados exitosamente"); // Puedes enviar la respuesta que desees al frontend
+
+        } catch (Exception e) {
+            BDUtils.rollback(em);
+            e.printStackTrace();
+        }
+        em.close();
 
     }
 }

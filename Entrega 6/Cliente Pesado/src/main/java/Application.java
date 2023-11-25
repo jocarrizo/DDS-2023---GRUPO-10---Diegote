@@ -12,6 +12,7 @@ import presentation.*;
 
 import persistance.Programador;
 import presentation.CargaMasivaHandler;
+import presentation.controller.*;
 
 import java.io.IOException;
 
@@ -42,12 +43,12 @@ public class Application {
         app.get("api/Entidades", new GetEntidadesHandler());
         app.get("api/Establecimientos/{id}", new GetEstablecimientosPorEntidadHandler());
         app.get("api/Servicios/{id}",new GetServiciosPorEstablecimiento());
-        app.post("/CargaDeDatos", new CargaMasivaHandler());
 
+        app.post("/CargaDeDatos", new CargaMasivaHandler());
         app.post("/administrarUsuario", new administrarUsuarioController());
         app.post("/administrarUsuarioAplicar", new administrarUsuarioHandler());
-
-
+        app.get("/rankings", new RankingsController());
+        app.post("/incidentes", new incidentesPorEstadoController());
 
         app.post("/api/login", new LoginHandler());
 

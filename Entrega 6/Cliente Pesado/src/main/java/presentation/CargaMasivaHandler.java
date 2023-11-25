@@ -1,15 +1,18 @@
 package presentation;
 
 import com.opencsv.CSVReader;
+
+import example.hibernate.utils.BDUtils;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import io.javalin.http.UploadedFile;
 import org.jetbrains.annotations.NotNull;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,6 +21,7 @@ public class CargaMasivaHandler implements Handler {
     public void handle(@NotNull Context ctx) throws Exception {
         String[] nombresArchivos = {"EntidadescsvFile", "OrganismoscsvFile"};
         boolean archivoEncontrado = false;
+
 
         for (String fieldName : nombresArchivos) {
             UploadedFile uploadedFile = ctx.uploadedFile(fieldName);
@@ -49,20 +53,38 @@ public class CargaMasivaHandler implements Handler {
         }
     }
 
-        public void procesarEntidad_csv(List<String[]> csvData) {
+    public void procesarEntidad_csv(List<String[]> csvData) {
+        EntityManager em = BDUtils.getEntityManager();
+        BDUtils.comenzarTransaccion(em);
+
+        try {
+
             for (int i = 1; i < csvData.size(); i++) {
                 String[] row = csvData.get(i);
 
-                // Suponiendo que el orden de las columnas es: nombre, precio, cantidad
-                String att1 = row[0];
-                double att2 = Double.parseDouble(row[1]);
-                int att3 = Integer.parseInt(row[2]);
+                // EN EL DER NO ESTA PERFIL ¿QUÉ PASO AHí?
+                String sql = "INSERT INTO Entidad (id_entidad, nombre, establecimiento, tipo, locacion, incidentes, id_perfil) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-                Entidad entidad = new Entidad(att1, att2, att3);
+                Query query = em.createNativeQuery(sql);
+
+                query.setParameter(1, Long.valueOf(row[0]));
+                query.setParameter(2, row[1]);
+                query.setParameter(3, Long.valueOf(row[2]));
+                query.setParameter(4, String.valueOf(row[3]));
+                query.setParameter(5, Long.valueOf(row[4]));
+                query.setParameter(6, Long.valueOf(row[5]));
+                query.setParameter(7, Long.valueOf(row[6]));
+                query.executeUpdate();
 
             }
-        }
 
+            BDUtils.commit(em);
+        } catch (Exception e) {
+            BDUtils.rollback(em);
+            e.printStackTrace();
+        }
+        em.close();
+    }
         public void procesarOrganismo_csv(List<String[]> csvData){}
 
 }
