@@ -16,8 +16,8 @@ import presentation.controller.*;
 
 import java.io.IOException;
 
-public class Application {
 
+public class Application {
     public static void main(String[] args) throws SchedulerException {
 
         //Inicializo el motor de templates
@@ -44,11 +44,25 @@ public class Application {
         app.get("api/Establecimientos/{id}", new GetEstablecimientosPorEntidadHandler());
         app.get("api/Servicios/{id}",new GetServiciosPorEstablecimiento());
 
-        app.post("/CargaDeDatos", new CargaMasivaHandler());
-        app.post("/administrarUsuario", new administrarUsuarioController());
-        app.post("/administrarUsuarioAplicar", new administrarUsuarioHandler());
-        app.get("/rankings", new RankingsController());
-        app.post("/incidentes", new incidentesPorEstadoController());
+
+        app.get("/cargaMasiva", ctx ->{
+            ctx.redirect("/cargaMasiva.html");
+        });//EN ESPERA
+        app.post("/cargaMasiva", new CargaMasivaHandler());//EN ESPERA
+
+        //No anda pero anda :) creo, hay que arreglar el .js
+        app.get("/administrarUsuario/{IDUSUARIO}", new administrarUsuarioController());
+        app.post("/administrarUsuarioAplicar", new administrarUsuarioHandler()); //Ni yo me acuerdo que hice aca
+
+        app.get("/rankings", new RankingsController()); //PONELE QUE ESTA (HAY QUE HACER LA PRUEBA CON DB)
+
+        app.get("/incidentes/{IDUSUARIO}", ctx -> {
+            ctx.redirect("/incidentes/"+ctx.pathParamAsClass("IDUSUARIO", String.class).get()+"/-1/%20");
+        });
+        app.get("/incidentes/{IDUSUARIO}/{COMUNIDAD}/{FILTRO}", new incidentesPorEstadoController()); //Falta probar con más datos
+
+
+
 
         app.post("/api/login", new LoginHandler());
 
@@ -64,7 +78,7 @@ public class Application {
                     Template template = null;
                     try {
                         template = handlebars.compile(
-                                "src/main/resources/public" + path.replace(".hbs",""));
+                                "public/" + path.replace(".hbs", ""));
                         return template.apply(model);
                     } catch (IOException e) {
                         e.printStackTrace();

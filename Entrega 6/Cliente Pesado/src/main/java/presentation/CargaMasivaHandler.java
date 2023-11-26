@@ -13,16 +13,16 @@ import javax.persistence.Query;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class CargaMasivaHandler implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
-        String[] nombresArchivos = {"EntidadescsvFile", "OrganismoscsvFile"};
+        List<String> nombresArchivos = Arrays.asList("EntidadescsvFile", "OrganismoscsvFile");
         boolean archivoEncontrado = false;
-
-
+        System.out.println((ctx.body()));
         for (String fieldName : nombresArchivos) {
             UploadedFile uploadedFile = ctx.uploadedFile(fieldName);
 
@@ -62,7 +62,6 @@ public class CargaMasivaHandler implements Handler {
             for (int i = 1; i < csvData.size(); i++) {
                 String[] row = csvData.get(i);
 
-                // EN EL DER NO ESTA PERFIL ¿QUÉ PASO AHí?
                 String sql = "INSERT INTO Entidad (id_entidad, nombre, establecimiento, tipo, locacion, incidentes, id_perfil) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
                 Query query = em.createNativeQuery(sql);

@@ -18,11 +18,11 @@ public class administrarUsuarioController implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
 
-        String IDSESION = ctx.body();
+        Long IDUSUARIO = ctx.pathParamAsClass("IDUSUARIO", Long.class).get();
 
         List<RolComunidad> comunidades = new ArrayList<>();
 
-        List<comunidad_x_perfil> comunidades_crudas = comunidad_x_perfilPorId(Long.valueOf(IDSESION));
+        List<comunidad_x_perfil> comunidades_crudas = comunidad_x_perfilPorId(IDUSUARIO);
         for (comunidad_x_perfil comunidad : comunidades_crudas){
             comunidades.add(new RolComunidad(comunidad.getComunidad().getId_comunidad(), comunidad.isEsAfectado()));
         }
@@ -36,10 +36,10 @@ public class administrarUsuarioController implements Handler {
     private List<comunidad_x_perfil> comunidad_x_perfilPorId(Long id){
         EntityManager em = BDUtils.getEntityManager();
 
-        String hql = "SELECT c FROM comunidad_x_perfil c WHERE c.comunidad = ?1";
+        String hql = "SELECT c FROM comunidad_x_perfil c WHERE c.comunidad.id_comunidad = :x";
 
         TypedQuery<comunidad_x_perfil> query = em.createQuery(hql, comunidad_x_perfil.class);
-        query.setParameter(1, id);
+        query.setParameter("x", id);
         List<comunidad_x_perfil> result = query.getResultList();
 
         em.close();

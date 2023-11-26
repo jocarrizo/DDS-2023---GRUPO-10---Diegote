@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class administrarUsuarioHandler implements Handler {
 
+    //JOACO AYUDA :))))
     String sql = "UPDATE Comunidad_X_Perfil SET esObservador = NOT esObservador, esAfectado = NOT esAfectado " +
             "WHERE id_perfil = :id_perfil AND id_comunidad = :id_comunidad";
     @Override
@@ -25,7 +26,7 @@ public class administrarUsuarioHandler implements Handler {
         // Convertir el JSON a un Map<String, Boolean> usando Jackson
         Map<String, Boolean> data = objectMapper.readValue(requestBody, Map.class);
 
-        String IDSESION = (String) data.get("IDSESION");
+        String IDSESION = String.valueOf(data.get("IDSESION"));
 
         // Eliminar IDSESION del mapa
         data.remove("IDSESION");
