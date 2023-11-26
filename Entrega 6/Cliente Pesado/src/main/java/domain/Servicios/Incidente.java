@@ -21,7 +21,7 @@ public class Incidente {
     @Column
     private boolean abierto;
     @Column
-    private Date apertura;
+    private Date apertura = new Date();
     @Column
     private Date cierre;
 
@@ -53,6 +53,7 @@ public class Incidente {
         this.comunidad = comunidad;
         this.id_perfil_apertura = id_perfil_apertura;
         this.apertura = new Date();
+
     }
 
     private int duracionIncidente(){

@@ -1,4 +1,4 @@
-package presentation;
+package presentation.GET;
 
 import example.hibernate.utils.BDUtils;
 import io.javalin.http.Context;

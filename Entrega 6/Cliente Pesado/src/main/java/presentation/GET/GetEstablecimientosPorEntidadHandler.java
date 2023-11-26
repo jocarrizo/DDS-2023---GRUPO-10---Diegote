@@ -1,6 +1,5 @@
-package presentation;
+package presentation.GET;
 
-import domain.Entidades.Tramo;
 import example.hibernate.utils.BDUtils;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
@@ -13,35 +12,34 @@ import presentation.dto.MisDatos;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class GetServiciosPorEstablecimiento implements Handler {
+public class GetEstablecimientosPorEntidadHandler implements Handler {
     @OpenApi(
-            path = "/api/Servicios/{id}",
+            path = "/api/Establecimientos/{id}",
             methods = {HttpMethod.GET},
-            pathParams = @OpenApiParam(name = "id", description = "Servicios de Entidad", required = true, type = Long.class)
+            pathParams = @OpenApiParam(name = "id", description = "Establecimientos de Entidad", required = true, type = Long.class)
     )
     @Override
     public void handle(@NotNull Context context) throws Exception {
         EntityManager em = BDUtils.getEntityManager();
 
         Long id = context.pathParamAsClass("id", Long.class).get();
+
         System.out.println(id);
 
-        List<Tramo> tramos;
+        List<MisDatos> establecimientos ;
         try {
-            tramos = em.createQuery("SELECT t FROM Tramo t where t.establecimiento.id_establecimiento = ?1", Tramo.class)
-                        .setParameter(1,id)
-                        .getResultList();
-            System.out.println(tramos);
+            establecimientos = em.createQuery("SELECT NEW presentation.dto.MisDatos(t.id_establecimiento,t.nombre) FROM Establecimiento t where t.entidad.id_entidad=?1", MisDatos.class)
+                    .setParameter(1,id)
+                    .getResultList();
+
         }catch(Exception e){
             System.out.println(e.getMessage());
             context.status(500);//TODO: VER ERROR CORRECTO
-            em.close();
             return;
         }
 
-
-
         em.close();
-        context.status(200);
+        context.json(establecimientos);
     }
 }
+

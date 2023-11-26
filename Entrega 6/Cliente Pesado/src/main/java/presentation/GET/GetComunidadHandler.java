@@ -1,4 +1,4 @@
-package presentation;
+package presentation.GET;
 
 import domain.Usuarios.Comunidades.Comunidad;
 

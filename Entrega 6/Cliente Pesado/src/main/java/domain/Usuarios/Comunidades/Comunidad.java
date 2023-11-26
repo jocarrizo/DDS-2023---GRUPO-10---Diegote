@@ -115,6 +115,10 @@ public class Comunidad {
         }
     }
 
+
+    //TODO: Completar
+    public void notificarUsuarios(){}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

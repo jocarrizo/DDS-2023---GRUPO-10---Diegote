@@ -1,4 +1,5 @@
 
+
 var app = new Vue({
     el: "#aperturaIncidenteForm",
     data: {
@@ -6,24 +7,25 @@ var app = new Vue({
         selectedSubEntity: "",
         entities: [],
         subEntities: [],
-        services: []
+        services: [],
+        selectedService: null,
+        observaciones: ""
     },
     methods: {
         loadEntities: function() {
             fetch("http://localhost:4567/api/Entidades")
                 .then(response => {
-                    if (!response.ok) {
+                    if (!response.ok){
                         throw new Error("Error al cargar las entidades");
                     }
                     return response.json();
                 })
                 .then(data => {
-
                     this.entities = data;
                 })
                 .catch(error => {
 
-                    console.error("Error al cargar las entidades: ", error);
+                    console.error( error);
                 });
         },
 
@@ -61,12 +63,34 @@ var app = new Vue({
                     return response.json();
                 })
                 .then(data => {
-                    this.subEntities = data;
+                    this.services = data;
                 })
                 .catch(error => {
 
                     console.error("Error al cargar las subentidades: ", error);
                 });
+        },
+        abrirIncidente: function () {
+            fetch('http://localhost:4567/api/abrirIncidente',{
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idSesion: localStorage.getItem('IDSESION'),
+                    idServicio: this.selectedService.idServicio,
+                    idPerfil: JSON.parse(localStorage.getItem("PERFIL_ACTUAL")).idPerfil,
+                    idEntidad: this.selectedEntity,
+                    observaciones: this.observaciones
+                })
+            })
+                .then(response => {
+                    //logica de respuesta
+                    if(response.status === 201)
+                        window.location.reload()
+                    else
+                        throw new Error("Respuesta innesperada");
+                })
         }
     },
     mounted: function() {

@@ -17,6 +17,8 @@ public class Usuario
     @Column(name = "ID")
     private long id_usuario;
 
+    
+
 
     @OneToMany(mappedBy ="usuario_asoc" )
     private List<Perfil> perfiles = new ArrayList<>();
