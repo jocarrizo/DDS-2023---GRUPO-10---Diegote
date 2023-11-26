@@ -10,9 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class CargaMasivaHandler implements Handler {
     public void handle(@NotNull Context ctx) throws Exception {
         List<String> nombresArchivos = Arrays.asList("EntidadescsvFile", "OrganismoscsvFile");
         boolean archivoEncontrado = false;
-        System.out.println((ctx.body()));
+
         for (String fieldName : nombresArchivos) {
             UploadedFile uploadedFile = ctx.uploadedFile(fieldName);
 
@@ -49,7 +47,7 @@ public class CargaMasivaHandler implements Handler {
         }
 
         if (!archivoEncontrado) {
-            ctx.result("No se encontró ningún archivo CSV");
+            ctx.result("No se pudo guardar el csv.");
         }
     }
 

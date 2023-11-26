@@ -1,11 +1,17 @@
-function enviarArchivos(fileInputId) {
-    var file = document.getElementById(fileInputId).files[0];
-
-    if (file) {
-        var formData = new FormData();
+let file;
+let formData;
+function prepararArchivos(fileInputId){
+    file = document.getElementById(fileInputId).files[0];
+    if (file){
+        formData = new FormData();
         formData.append(fileInputId, file);
+    }
+}
 
-        fetch('localhost:4567/cargaMasiva', {
+function enviarArchivos() {
+    if (file) {
+
+        fetch('http://localhost:4567/cargaMasiva/cargar', {
             method: 'POST',
             body: formData
         })
@@ -23,5 +29,24 @@ function enviarArchivos(fileInputId) {
             });
     } else {
         console.log('Por favor selecciona un archivo.');
+    }
+}
+
+
+function handleFileSelect(inputId, labelId, otherLabelId, btnId, otherBtnId) {
+    var input = document.getElementById(inputId);
+    var label = document.getElementById(labelId);
+    var submitButton = document.getElementById('submitButton');
+    var otherLabel = document.getElementById(otherLabelId);
+    var btn = document.getElementById(btnId);
+    var otherBtn = document.getElementById(otherBtnId);
+
+    if (input.files.length > 0) {
+        label.innerHTML = 'Archivo seleccionado: ' + input.files[0].name;
+        input.style.display = 'none';  // Oculta el botón de carga de archivos
+        otherLabel.style.display = 'none';  // Oculta el otro botón de carga de archivos
+        btn.style.display = 'none';  // Oculta el botón actual
+        otherBtn.style.display = 'none';  // Oculta el otro botón
+        submitButton.style.display = 'inline-block';  // Muestra el botón de enviar
     }
 }

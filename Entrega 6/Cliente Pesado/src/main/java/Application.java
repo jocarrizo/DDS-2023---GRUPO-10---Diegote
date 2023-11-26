@@ -48,7 +48,7 @@ public class Application {
         app.get("/cargaMasiva", ctx ->{
             ctx.redirect("/cargaMasiva.html");
         });//EN ESPERA
-        app.post("/cargaMasiva", new CargaMasivaHandler());//EN ESPERA
+        app.post("/cargaMasiva/cargar", new CargaMasivaHandler());//EN ESPERA
 
         //No anda pero anda :) creo, hay que arreglar el .js
         app.get("/administrarUsuario/{IDUSUARIO}", new administrarUsuarioController());

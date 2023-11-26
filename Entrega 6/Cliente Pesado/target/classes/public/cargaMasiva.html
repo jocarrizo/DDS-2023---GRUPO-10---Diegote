@@ -9,20 +9,21 @@
 </head>
 <body>
 <yus-html src="/navbar.html"></yus-html>
-<form class="upload-form">
+<form class="upload-form" action="http://localhost:4567/cargaMasiva/cargar" method="post" enctype="multipart/form-data">
     <h2>Carga Masiva de Datos</h2>
     <label class="btn btn-danger btn-sm" for="EntidadescsvFile" id="entidadesBtn">Cargar Entidades</label>
-    <input type="file" id="EntidadescsvFile" accept=".csv" required onchange="handleFileSelect('EntidadescsvFile', 'entidadesLabel', 'organismosLabel', 'entidadesBtn', 'organismosBtn'); enviarArchivos('EntidadescsvFile')">
+    <input type="file" id="EntidadescsvFile" name="EntidadescsvFile" accept=".csv" required onchange="handleFileSelect('EntidadescsvFile', 'entidadesLabel', 'organismosLabel', 'entidadesBtn', 'organismosBtn'); prepararArchivos('EntidadescsvFile')">
     <span id="entidadesLabel"></span>
 
     <label class="btn btn-danger btn-sm" for="OrganismoscsvFile" id="organismosBtn">Cargar Organismos</label>
-    <input type="file" id="OrganismoscsvFile" accept=".csv" required onchange="handleFileSelect('OrganismoscsvFile', 'organismosLabel', 'entidadesLabel', 'organismosBtn', 'entidadesBtn'); enviarArchivos('OrganismoscsvFile')">
+    <input type="file" id="OrganismoscsvFile" name="OrganismoscsvFile" accept=".csv" required onchange="handleFileSelect('OrganismoscsvFile', 'organismosLabel', 'entidadesLabel', 'organismosBtn', 'entidadesBtn'); prepararArchivos('OrganismoscsvFile')">
     <span id="organismosLabel"></span>
 
     <div id="preview"></div>
-    <button class="btn btn-outline-danger btn-sm" type="submit" id="submitButton" style="display: none;">Cargar Datos</button>
+    <a class="btn btn-outline-danger btn-sm" type="submit" onclick="enviarArchivos()" id="submitButton" style="display: none;">Cargar Datos</a>
 </form>
 
-<script src="resources/JS/script.js"></script>
+<script src="resources/JS/cargaMasiva.js"></script>
+
 </body>
 </html>

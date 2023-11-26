@@ -47,21 +47,3 @@ customElements.define('yus-html',
 
         }
     });
-
-function handleFileSelect(inputId, labelId, otherLabelId, btnId, otherBtnId) {
-    var input = document.getElementById(inputId);
-    var label = document.getElementById(labelId);
-    var submitButton = document.getElementById('submitButton');
-    var otherLabel = document.getElementById(otherLabelId);
-    var btn = document.getElementById(btnId);
-    var otherBtn = document.getElementById(otherBtnId);
-
-    if (input.files.length > 0) {
-        label.innerHTML = 'Archivo seleccionado: ' + input.files[0].name;
-        input.style.display = 'none';  // Oculta el botón de carga de archivos
-        otherLabel.style.display = 'none';  // Oculta el otro botón de carga de archivos
-        btn.style.display = 'none';  // Oculta el botón actual
-        otherBtn.style.display = 'none';  // Oculta el otro botón
-        submitButton.style.display = 'inline-block';  // Muestra el botón de enviar
-    }
-}
