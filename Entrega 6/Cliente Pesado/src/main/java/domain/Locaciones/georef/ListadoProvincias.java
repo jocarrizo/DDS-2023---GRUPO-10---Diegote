@@ -1,9 +1,12 @@
 package domain.Locaciones.georef;
 
 import domain.Locaciones.Provincia;
+import example.hibernate.utils.BDUtils;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.EntityManager;
+import java.io.IOException;
 import java.util.List;
 
 @Getter
@@ -25,11 +28,27 @@ public class ListadoProvincias{
 
     public Provincia provinciaDeId(int id) {
         for (Provincia provincia : this.provincias) {
-            if (provincia.id == id) {
+            if (provincia.getId() == id) {
                 return provincia;
             }
         }
         return null;
+    }
+
+    public void persistir(){
+        EntityManager em = BDUtils.getEntityManager();
+        BDUtils.comenzarTransaccion(em);
+
+        try {
+            for (Provincia provincia : provincias) em.persist(provincia);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            BDUtils.rollback(em);
+            em.close();
+        }
+
+        BDUtils.commit(em);
+        em.close();
     }
 
     private static class Parametro {

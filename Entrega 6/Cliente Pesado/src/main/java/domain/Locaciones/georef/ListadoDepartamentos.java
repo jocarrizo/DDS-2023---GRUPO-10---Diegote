@@ -1,9 +1,18 @@
 package domain.Locaciones.georef;
 
 import domain.Locaciones.Departamento;
+import domain.Locaciones.Provincia;
+import example.hibernate.utils.BDUtils;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
+
+
+@Getter
+@Setter
 public class ListadoDepartamentos {
     private int cantidad;
     private int total;
@@ -20,6 +29,22 @@ public class ListadoDepartamentos {
         return instance;
     }
 
+
+    public void persistir(){
+        EntityManager em = BDUtils.getEntityManager();
+        BDUtils.comenzarTransaccion(em);
+
+        try {
+            for (Departamento departamento : departamentos) em.persist(departamento);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            BDUtils.rollback(em);
+            em.close();
+        }
+
+        BDUtils.commit(em);
+        em.close();
+    }
 
     @Override
     public String toString() {

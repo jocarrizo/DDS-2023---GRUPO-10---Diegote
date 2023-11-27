@@ -1,9 +1,12 @@
 package domain.Locaciones.georef;
 
 import domain.Locaciones.Municipio;
+import domain.Locaciones.Provincia;
+import example.hibernate.utils.BDUtils;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 @Getter
 @Setter
@@ -33,6 +36,22 @@ public class ListadoMunicipio {
             instance = new ListadoMunicipio();
         }
         return instance;
+    }
+
+    public void persistir(){
+        EntityManager em = BDUtils.getEntityManager();
+        BDUtils.comenzarTransaccion(em);
+
+        try {
+            for (Municipio municipio : municipios) em.persist(municipio);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            BDUtils.rollback(em);
+            em.close();
+        }
+
+        BDUtils.commit(em);
+        em.close();
     }
 
     @Override

@@ -1,5 +1,9 @@
-package domain.Entidades;
+package domain.Entidades.Transporte;
 
+
+import domain.Entidades.Establecimiento;
+
+//TODO: Todo transporte
 public class Linea {
 
     public Establecimiento estacionOrigen;

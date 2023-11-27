@@ -5,10 +5,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface georefService {
-    @GET("provincias")
+    @GET("provincias?aplanar=true")
     Call<ListadoProvincias> provincias();
 
-    @GET("provincias")
+    @GET("provincias?aplanar=true")
     Call<ListadoProvincias> provincias(@Query("campos") String campos);
 
     @GET("municipios?aplanar=true")

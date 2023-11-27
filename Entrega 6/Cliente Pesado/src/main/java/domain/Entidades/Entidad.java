@@ -26,18 +26,22 @@ public class Entidad {
     private List<Establecimiento> establecimientos;
 
     @Enumerated(EnumType.STRING)
-    @Column
+    @Column(name="TIPO")
     private TipoEntidad tipo;
 
     @ManyToOne
-    @JoinColumn (name = "id_localizacion")
+    @JoinColumn (name = "ID_LOCALIZACION")
     private Locacion locacion;
 
     @OneToMany(mappedBy = "entidad")
     private List<Incidente> incidentes;
-
+    //TODO
     @Transient
     private List<Perfil> suscripciones;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ENTIDAD_PRESTADORA")
+    private EntidadPrestadora entidad_prestadora;
 
     public void agregar_incidente(Incidente incidente){};
     public void agregar_incidente_oficial(Incidente incidente){};

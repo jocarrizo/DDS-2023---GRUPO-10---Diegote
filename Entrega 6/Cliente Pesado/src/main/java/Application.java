@@ -34,6 +34,9 @@ public class Application {
 
         app.get("/api/perfil/{id}",     new GetPerfilHandler());
         app.get("/api/comunidad/{id}",  new GetComunidadHandler());
+
+
+
         app.get("/api/Entidades", new GetEntidadesHandler());
         app.get("/api/Establecimientos/{id}", new GetEstablecimientosPorEntidadHandler());
         app.get("/api/Servicios/{id}",new GetServiciosPorEstablecimiento());
@@ -48,6 +51,7 @@ public class Application {
         Programador.programar();
     }
 }
+
 /*
  INSERT INTO `prueba_api`.`perfil`
         (`id_perfil`,

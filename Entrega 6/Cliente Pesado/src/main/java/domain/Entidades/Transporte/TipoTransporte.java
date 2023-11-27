@@ -1,4 +1,4 @@
-package domain.Entidades;
+package domain.Entidades.Transporte;
 
 public enum TipoTransporte {
     FERROCARRIL,
