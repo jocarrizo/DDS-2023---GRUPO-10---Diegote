@@ -46,7 +46,7 @@ public class Application {
 
 
         app.get("/cargaMasiva", ctx ->{
-            ctx.redirect("/cargaMasiva.html");
+           ctx.redirect("/cargaMasiva.html");
         });//EN ESPERA
         app.post("/cargaMasiva/cargar", new CargaMasivaHandler());//EN ESPERA
 

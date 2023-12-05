@@ -21,6 +21,7 @@ public class CargaMasivaHandler implements Handler {
         List<String> nombresArchivos = Arrays.asList("EntidadescsvFile", "OrganismoscsvFile");
         boolean archivoEncontrado = false;
 
+        String a = ctx.body();
         for (String fieldName : nombresArchivos) {
             UploadedFile uploadedFile = ctx.uploadedFile(fieldName);
 

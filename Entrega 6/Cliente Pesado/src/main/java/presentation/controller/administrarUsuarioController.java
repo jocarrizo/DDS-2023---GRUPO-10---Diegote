@@ -29,7 +29,7 @@ public class administrarUsuarioController implements Handler {
 
 
         Map<String, Object> model = new HashMap<>();
-        model.put("comunidades", comunidades);
+        model.put("comunidad", comunidades);
         ctx.render("administrarUsuario.hbs", model);
     }
 

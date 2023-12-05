@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios y Observadores</title>
+    <link rel="stylesheet" href="resources/CSS/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <yus-html src="navbar.html"></yus-html>
+
+    <h1>Usuarios y Observadores</h1>
+
+    <div>
+        <select v-model="selectedCommunity">
+            <option v-for="community in communities" :key="community.id" :value="community.id">{{ community.name }}</option>
+        </select>
+
+        <table class="table">
+            <thead class="bg-danger" style="color: white;">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="user in users" :key="user.id">
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.role }}</td>
+                <td><a class="w-50 py-2 btn btn-danger" style="border-radius: 25px;" v-on:click="removeUserFromCommunity(user.id)"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="resources/JS/script.js"></script>
+</body>
+</html>
