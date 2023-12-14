@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carga Masiva de Datos</title>
+    <link rel="stylesheet" href="resources/CSS/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<yus-html src="/navbar.html"></yus-html>
+<form class="upload-form" action="http://localhost:4567/cargaMasiva/cargar" method="post" enctype="multipart/form-data">
+    <h2>Carga Masiva de Datos</h2>
+    <label class="btn btn-danger btn-sm" for="EntidadescsvFile" id="entidadesBtn">Cargar Entidades</label>
+    <input type="file" id="EntidadescsvFile" name="EntidadescsvFile" accept=".csv" required onchange="handleFileSelect('EntidadescsvFile', 'entidadesLabel', 'organismosLabel', 'entidadesBtn', 'organismosBtn'); prepararArchivos('EntidadescsvFile')">
+    <span id="entidadesLabel"></span>
+
+    <label class="btn btn-danger btn-sm" for="OrganismoscsvFile" id="organismosBtn">Cargar Organismos</label>
+    <input type="file" id="OrganismoscsvFile" name="OrganismoscsvFile" accept=".csv" required onchange="handleFileSelect('OrganismoscsvFile', 'organismosLabel', 'entidadesLabel', 'organismosBtn', 'entidadesBtn'); prepararArchivos('OrganismoscsvFile')">
+    <span id="organismosLabel"></span>
+
+    <div id="preview"></div>
+    <a class="btn btn-outline-danger btn-sm" type="submit" onclick="enviarArchivos()" id="submitButton" style="display: none;">Cargar Datos</a>
+</form>
+
+<script src="resources/JS/cargaMasivaLiviano.js"></script>
+
+</body>
+</html>

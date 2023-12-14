@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Incidentes</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<script src="resources/JS/incidentesLiviano.js"></script>
+
+<form class="incident-form" id="incidentesForm">
+    <!-- Aquí debería ir tu navbar.html o contenido de la barra de navegación -->
+    <!-- <yus-html src="/navbar.html"></yus-html> -->
+    <h1>Listado de Incidentes</h1>
+    <div>
+        <h3 class="mt-3 mb-2">Comunidades disponibles:</h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Comunidad ID</th>
+                <th scope="col">Comunidad Nombre</th>
+                <th scope="col">Seleccionar</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each comunidad}}
+            <tr>
+                <td>{{id_comunidad}}</td>
+                <td>{{nombre}}</td>
+                <td>
+                    <div class="form-check">
+                        <input type="radio" id="comunidad" name="comunidad" onclick="elegirComunidad({{id_comunidad}})" />
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Agrega la sección para mostrar los incidentes según la comunidad seleccionada -->
+
+    <div id="filtroIncidentesContainer"></div>
+
+</form>
+</body>
+</html>
