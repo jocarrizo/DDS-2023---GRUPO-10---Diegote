@@ -25,7 +25,7 @@ public class LoginHandler implements Handler {
 
         EntityManager em = BDUtils.getEntityManager();
 
-        //TODO: TIENE QUE SER UN USUARIO STRING NO ID AUTOGENERADO
+
         Usuario results;
         try {
             results = em.createQuery("SELECT t FROM Usuario t where t.correo = ?1", Usuario.class)

@@ -20,8 +20,8 @@ public class DatoPerfil {
 
         this.idPerfil = idPerfil;
         this.nombrePerfil = nombrePerfil;
-        comunidades_x_perfil =  em.createQuery("SELECT NEW presentation.dto.DatoComunidades_x_Perfil(t.comunidad.id_comunidad," +
-                                " t.esObservador,t.esAdmin) FROM comunidad_x_perfil t where t.perfil.id_perfil = ?1", DatoComunidades_x_Perfil.class)
+        comunidades_x_perfil =  em.createQuery("SELECT NEW presentation.dto.DatoComunidades_x_Perfil(t.comunidad.id_comunidad,t.comunidad.nombre, " +
+                                "t.esObservador,t.esAdmin) FROM comunidad_x_perfil t where t.perfil.id_perfil = ?1", DatoComunidades_x_Perfil.class)
                                 .setParameter(1,idPerfil)
                                 .getResultList();
 

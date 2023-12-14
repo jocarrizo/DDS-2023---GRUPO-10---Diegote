@@ -27,6 +27,9 @@ public class Comunidad {
     @Enumerated(EnumType.STRING)
     private Confianza confianza;
 
+    @Column(name = "NOMBRE")
+    private String nombre;
+
     @OneToMany(mappedBy = "comunidad")
     private List<comunidad_x_perfil> miembros = new ArrayList<comunidad_x_perfil>();
 

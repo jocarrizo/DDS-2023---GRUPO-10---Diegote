@@ -54,19 +54,22 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">Comunidad</th>
-            <th scope="col">Rol Actual</th>
+            <th scope="col">ID Comunidad</th>
+            <th scope="col">Es Admin</th>
             <th scope="col">Cambiar Rol</th>
         </tr>
         </thead>
         <tbody>
         <!--    HAY QUE TRAER EL NOMBRE DE LA COMUNIDAD    -->
         <tr v-for="community in communities" :key="community.idComunidad">
+            <td>{{ community.nombreComunidad }}</td>
             <td>{{ community.idComunidad }}</td>
-            <td>{{ community.rolComunidad }}</td>
+            <td>{{ community.adminDeComunidad ? 'SI' : 'NO' }}</td>
+
             <td>
                 <select class="form-control" v-model="community.rolComunidad" @change="updateRol(community.idComunidad)">
                     <option value=true> Observador </option>
-                    <option value=false> Regular </option>
+                    <option value=false> Afectado </option>
                 </select>
             </td>
         </tr>

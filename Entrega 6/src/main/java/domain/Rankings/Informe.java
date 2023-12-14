@@ -16,9 +16,6 @@ public class Informe {
     @GeneratedValue
     private long id_informe;
 
-    @OneToMany(mappedBy = "informe_asoc")
-    private List<Ranking> ranking;
-
     @Column(name = "FECHA_CREACION")
     private Date fecha_creacion;
 

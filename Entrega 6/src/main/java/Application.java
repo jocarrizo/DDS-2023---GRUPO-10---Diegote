@@ -38,6 +38,8 @@ public class Application {
         app.get("/api/Establecimientos/{id}", new GetEstablecimientosPorEntidadHandler());
         app.get("/api/Servicios/{id}",new GetServiciosPorEstablecimiento());
         app.get("/api/Incidentes", new GetIncidentesHandler());
+        app.get("/rankings", new GetRankingsHandler());
+
 
         app.post("/api/cambiarRolComunidad",new cambiarRolComunidadHandler());
         app.post("/api/login", new LoginHandler());
