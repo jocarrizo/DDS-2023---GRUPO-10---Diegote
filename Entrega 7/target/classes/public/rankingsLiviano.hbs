@@ -13,7 +13,7 @@
     <h2>Rankings de Incidentes</h2>
 
     {{#each lista_rankings}}
-        <h4>Ranking: {{@key}}</h4>
+        <h4>Ranking: {{tipo_ranking}}</h4>
         <table class="table centered-table">
             <thead class="bg-danger" style="color: white;">
             <tr>
@@ -22,9 +22,9 @@
             </tr>
             </thead>
             <tbody>
-            {{#each this}}
+            {{#each this.ranking}}
                 <tr>
-                    <td>{{id_ranking}}</td>
+                    <td>{{id_posicion}}</td>
                     <td>{{entidad.nombre}}</td>
                 </tr>
             {{/each}}

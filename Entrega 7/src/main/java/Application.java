@@ -86,7 +86,7 @@ public class Application {
         app.get("/incidentesLiviano/tabla", new incidentesPorEstadoTablaController());
 
 
-        app.get("/rankingsLiviano", new RankingsController()); //PONELE QUE ESTA (HAY QUE HACER LA PRUEBA CON DB)
+        app.get("/rankingsLiviano", new RankingsController());
 
         app.post("/api/login", new LoginHandler());
 

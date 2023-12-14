@@ -1,5 +1,5 @@
 function elegirFiltro(filtroSeleccionado) {
-    fetch('http://localhost:4567/cookies/incidentes/filtro', {
+    fetch('http://localhost:4567/cookies/incidentesLiviano/filtro', {
         method: 'POST',
         body: filtroSeleccionado
     })
