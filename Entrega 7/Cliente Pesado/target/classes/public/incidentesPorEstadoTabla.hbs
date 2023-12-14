@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Incidentes</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<form class="incident-form" id="incidentesForm">
+
+<table class="table">
+  <thead class="bg-danger" style="color: white;">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Observaciones</th>
+    <th scope="col">Fecha de Apertura</th>
+    <th scope="col">Fecha de Cierre</th>
+    <th scope="col">Estado</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each incidente}}
+  <tr>
+    <td>{{idIncidente}}</td>
+    <td>{{observaciones}}</td>
+    <td>{{apertura}}</td>
+    <td>{{cierre}}</td>
+    <td>{{estado}}</td>
+  </tr>
+  {{/each}}
+  </tbody>
+</table>
+
+</form>
+</body>
+</html>

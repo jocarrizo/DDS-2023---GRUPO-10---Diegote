@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rankings</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<form class="incident-form">
+    <yus-html src="/navbar.html"></yus-html>
+    <h2>Rankings de Incidentes</h2>
+
+    {{#each lista_rankings}}
+        <h4>Ranking: {{@key}}</h4>
+        <table class="table centered-table">
+            <thead class="bg-danger" style="color: white;">
+            <tr>
+                <th>Puesto</th>
+                <th>Nombre del Ganador</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each this}}
+                <tr>
+                    <td>{{id_ranking}}</td>
+                    <td>{{entidad.nombre}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    {{/each}}
+</form>
+</body>
+</html>
