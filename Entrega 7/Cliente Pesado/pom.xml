@@ -15,7 +15,6 @@
   </properties>
 
   <dependencies>
-
     <dependency>
       <groupId>com.github.javafaker</groupId>
       <artifactId>javafaker</artifactId>
@@ -189,9 +188,6 @@
       <version>1.18.26</version>
       <scope>compile</scope>
     </dependency>
-
-
-
   </dependencies>
   <build>
     <plugins>

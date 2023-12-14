@@ -15,9 +15,7 @@ public class Usuario
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long id_usuario;
-
-
+    private long id_usuario
     @OneToMany(mappedBy ="usuario_asoc" )
     private List<Perfil> perfiles = new ArrayList<>();
 

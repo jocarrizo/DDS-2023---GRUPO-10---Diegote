@@ -14,6 +14,7 @@ import presentation.dto.LoginResponse;
 import javax.persistence.EntityManager;
 import java.util.Date;
 
+
 public class LoginHandler implements Handler {
 
     @Override
@@ -32,8 +33,7 @@ public class LoginHandler implements Handler {
         }
         catch (Exception e){
             System.out.println(e.getMessage());
-            context.status(401);
-            return;
+            context.status(401);            return;
         }
 
         em.close();

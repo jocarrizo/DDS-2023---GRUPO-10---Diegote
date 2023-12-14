@@ -22,26 +22,28 @@ public class CargaMasivaHandler implements Handler {
 
         CargaMasivaDatos datos = ctx.bodyAsClass(CargaMasivaDatos.class);
             if (datos != null) {
-
+                String response = "";
                 List<String[]> csvData = datos.getDataAsList();
                 switch (datos.getTipo()) {
                     case "EntidadescsvFile":
-                        procesarEntidad_csv(csvData);
+                        response = procesarEntidad_csv(csvData);
                         ctx.result("Procesando archivo EntidadescsvFile");
                         break;
                     case "OrganismoscsvFile":
-                        procesarOrganismo_csv(csvData);
+                        response = procesarOrganismo_csv(csvData);
                         ctx.result("Procesando archivo OrganismoscsvFile");
                         break;
-                    default:
-                        ctx.result("No se pudo guardar el csv.");
-                        break;
                 }
-
+                ctx.status(200).result(response);
+            }
+            else{
+                ctx.status(400).result("No se ha cargado correctamente el csv.");
             }
         }
 
-    public void procesarEntidad_csv(List<String[]> csvData) {
+    public String procesarEntidad_csv(List<String[]> csvData) {
+        String response = "No se han podido cargar las filas: ";
+
         EntityManager em = BDUtils.getEntityManager();
         BDUtils.comenzarTransaccion(em);
 
@@ -50,25 +52,30 @@ public class CargaMasivaHandler implements Handler {
             for (int i = 0; i < csvData.size(); i++) {
                 String[] row = csvData.get(i);
 
-                String sql = "INSERT INTO Entidad (id_entidad, nombre, tipo, id_localizacion) VALUES (?, ?, ?, ?)";
+                if (row.length == 4) {
+                    String sql = "INSERT INTO Entidad (id_entidad, nombre, tipo, id_localizacion) VALUES (?, ?, ?, ?)";
 
-                Query query = em.createNativeQuery(sql);
+                    Query query = em.createNativeQuery(sql);
 
-                query.setParameter(1, Long.valueOf(row[0]));
-                query.setParameter(2, row[1]);
-                query.setParameter(3, row[2]);
-                query.setParameter(4, Long.valueOf(row[3]));
-                query.executeUpdate();
-
+                    query.setParameter(1, Long.valueOf(row[0]));
+                    query.setParameter(2, row[1]);
+                    query.setParameter(3, row[2]);
+                    query.setParameter(4, Long.valueOf(row[3]));
+                    query.executeUpdate();
+                }else{
+                    response = response + i + " ";
+                }
             }
 
             BDUtils.commit(em);
         } catch (Exception e) {
             BDUtils.rollback(em);
             e.printStackTrace();
+            response = "";
         }
         em.close();
+        return response;
     }
-        public void procesarOrganismo_csv(List<String[]> csvData){}
+        public String procesarOrganismo_csv(List<String[]> csvData){return "";}
 
 }

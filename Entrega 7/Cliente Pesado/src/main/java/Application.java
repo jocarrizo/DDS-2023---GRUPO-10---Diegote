@@ -14,12 +14,28 @@ import presentation.*;
 import persistance.Programador;
 import presentation.CargaMasivaHandler;
 import presentation.controller.*;
-
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import java.io.IOException;
 
 
 public class Application {
     public static void main(String[] args) throws SchedulerException {
+        // Ruta al archivo JSON de configuración descargado
+        String pathToFirebaseConfig = "path/to/your/firebase-config.json";
+
+        try {
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(new FileInputStream(pathToFirebaseConfig)))
+                    .setDatabaseUrl("https://your-firebase-database-url.firebaseio.com%22/)
+                            .build();
+
+            FirebaseApp.initializeApp(options);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         //Inicializo el motor de templates
         initTemplateEngine();
