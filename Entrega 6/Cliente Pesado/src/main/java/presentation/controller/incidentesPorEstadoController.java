@@ -1,11 +1,10 @@
 package presentation.controller;
 
+import domain.Usuarios.Comunidades.Comunidad;
 import example.hibernate.utils.BDUtils;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
-import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
-import presentation.dto.ComunidadAux;
 import presentation.dto.IncidentesView;
 
 import javax.persistence.EntityManager;
@@ -18,11 +17,12 @@ public class incidentesPorEstadoController implements Handler{
     @Override
     public void handle(@NotNull Context ctx) throws Exception{
 
-        Long IDUSUARIO = ctx.pathParamAsClass("IDUSUARIO", Long.class).get();
-        String FILTRO_INCIDENTE = ctx.pathParamAsClass("FILTRO", String.class).get();
-        Long COMUNIDAD_INCIDENTE = ctx.pathParamAsClass("COMUNIDAD", Long.class).get();
+        String idUsuarioCookie = ctx.cookie("IDUSUARIO");
+        String comunidadIncidenteCookie = ctx.cookie("COMUNIDAD_INCIDENTE");
 
-        ComunidadAux comunidad_aux = new ComunidadAux(IDUSUARIO,FILTRO_INCIDENTE, COMUNIDAD_INCIDENTE);
+        Long IDUSUARIO = (idUsuarioCookie != null) ? Long.valueOf(idUsuarioCookie) : null;
+        Long COMUNIDAD_INCIDENTE = (comunidadIncidenteCookie != null) ? Long.valueOf(comunidadIncidenteCookie) : null;
+
 
         List<IncidentesView> incidentes = new ArrayList<>();
 
@@ -31,33 +31,18 @@ public class incidentesPorEstadoController implements Handler{
 
         try {
             Query query_comunidad = em.createQuery(hql_comunidad);
-            query_comunidad.setParameter("perfilito", comunidad_aux.getIDUSUARIO());
-            List<Long> comunidades = query_comunidad.getResultList();
-
-            if (comunidad_aux.getCOMUNIDAD() != -1) {
-
-                String hql_incidentes = "SELECT NEW presentation.dto.IncidentesView(i.id_incidente,i.observaciones,i.apertura,i.cierre, i.abierto) FROM Incidente i where i.comunidad=?1";
-
-                if (Objects.equals(comunidad_aux.getFILTRO(), "Abierto")){
-                    hql_incidentes = hql_incidentes.concat(" AND i.abierto=true");
-                } else if (Objects.equals(comunidad_aux.getFILTRO(), "Cerrado")) {
-                    hql_incidentes = hql_incidentes.concat(" AND i.abierto=false");
-                }
-
-                incidentes.addAll(em.createQuery(hql_incidentes, IncidentesView.class)
-                        .setParameter(1, comunidad_aux.getCOMUNIDAD())
-                        .getResultList());
-            }
+            query_comunidad.setParameter("perfilito", IDUSUARIO);
+            List<Comunidad> comunidades = query_comunidad.getResultList();
 
 
             BDUtils.commit(em);
             ctx.status(200);
 
             Map<String, Object> model = new HashMap<>();
-            model.put("comunidades", comunidades);
-            model.put("comunidadSeleccionada", comunidad_aux.getCOMUNIDAD()!= -1);
-            model.put("incidentes", incidentes);
+            model.put("comunidad", comunidades);
+
             ctx.render("incidentesPorEstado.hbs", model);
+
         } catch (Exception e) {
             BDUtils.rollback(em);
             e.printStackTrace();

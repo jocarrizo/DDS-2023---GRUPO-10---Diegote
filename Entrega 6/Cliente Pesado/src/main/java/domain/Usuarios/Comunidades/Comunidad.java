@@ -23,6 +23,8 @@ public class Comunidad {
     @Column (name = "ID")
     private long id_comunidad;
     @Column
+    private String nombre;
+    @Column
     private Double puntaje;
     @Enumerated(EnumType.STRING)
     private Confianza confianza;

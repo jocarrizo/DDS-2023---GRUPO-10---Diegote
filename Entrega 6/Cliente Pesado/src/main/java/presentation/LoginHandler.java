@@ -44,6 +44,7 @@ public class LoginHandler implements Handler {
         sesionManager.agregarAtributo(idSesion, "rol", results.getId_usuario());
         System.out.println("Logueando usuario:" + results.getId_usuario());
 
+        context.cookie("IDUSUARIO", String.valueOf(results.getId_usuario()));
         context.json(new LoginResponse(idSesion, results.getId_usuario()));
     }
 

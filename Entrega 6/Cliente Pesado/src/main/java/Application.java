@@ -2,6 +2,7 @@ import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import io.javalin.Javalin;
 import io.javalin.http.HttpStatus;
+import io.javalin.http.servlet.JavalinServletContext;
 import io.javalin.openapi.plugin.OpenApiConfiguration;
 import io.javalin.openapi.plugin.OpenApiPlugin;
 import io.javalin.openapi.plugin.swagger.SwaggerConfiguration;
@@ -30,11 +31,14 @@ public class Application {
                         cors.add(it-> it.anyHost());
                     });
                     config.staticFiles.add("/public");
-                })
-                .get("/", ctx -> {
-                    ctx.redirect("/login.html");
-                })
-                .start(4567);
+                }).start(4567);
+
+        app.get("/", ctx -> {
+            ctx.attribute("key", "value");
+            ctx.redirect("/login.html");
+        });
+
+
         System.out.println("Check out Swagger UI docs at http://localhost:4567/swagger");
 
 
@@ -47,24 +51,29 @@ public class Application {
 
         app.get("/cargaMasiva", ctx ->{
            ctx.redirect("/cargaMasiva.html");
-        });//EN ESPERA
-        app.post("/cargaMasiva/cargar", new CargaMasivaHandler());//EN ESPERA
+        });
+        app.post("/cargaMasiva/cargar", new CargaMasivaHandler());
 
-        //No anda pero anda :) creo, hay que arreglar el .js
-        app.get("/administrarUsuario/{IDUSUARIO}", new administrarUsuarioController());
+
+        app.get("/administrarUsuario", new administrarUsuarioController());
         app.post("/administrarUsuarioAplicar", new administrarUsuarioHandler()); //Ni yo me acuerdo que hice aca
+
+
+
+        app.post("/cookies/incidentes/comunidad", ctx -> {
+            ctx.cookie("COMUNIDAD_INCIDENTE",ctx.body());
+        });
+        app.post("/cookies/incidentes/filtro", ctx -> {
+            ctx.cookie("FILTRO_INCIDENTE",ctx.body());
+        });
+        app.get("/incidentes", new incidentesPorEstadoController());
+        app.get("/incidentes/tabla", new incidentesPorEstadoTablaController());
+
 
         app.get("/rankings", new RankingsController()); //PONELE QUE ESTA (HAY QUE HACER LA PRUEBA CON DB)
 
-        app.get("/incidentes/{IDUSUARIO}", ctx -> {
-            ctx.redirect("/incidentes/"+ctx.pathParamAsClass("IDUSUARIO", String.class).get()+"/-1/%20");
-        });
-        app.get("/incidentes/{IDUSUARIO}/{COMUNIDAD}/{FILTRO}", new incidentesPorEstadoController()); //Falta probar con más datos
-
-
-
-
         app.post("/api/login", new LoginHandler());
+
 
         Programador.programar();
     }

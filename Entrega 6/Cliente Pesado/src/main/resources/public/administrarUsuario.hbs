@@ -17,14 +17,17 @@
     <table class="table centered-table">
             <thead class = "bg-danger" style="color: white;" >
                 <tr>
-                    <th scope="col" >Comunidad</th>
+                    <th scope="col" >Comunidad ID</th>
+                    <th scope="col" >Comunidad Nombre</th>
                     <th scope="col">Rol</th>
+                    <th scope="col" >Admin</th>
                 </tr>
             </thead>
         <tbody>
 
         {{#each comunidad}}
         <tr>
+            <td>{{id}}</td>
             <td>{{nombre}}</td>
             <td>
                 <select>
@@ -32,7 +35,7 @@
                     <option value="2">{{norol}}</option>
                 </select>
             </td>
-
+            <td>{{admin}}</td>
         </tr>
         {{/each}}
 
@@ -44,6 +47,7 @@
     <br>
 
     <a id="aplicarBtn" class="mt-1 w-100 py-2 btn btn-danger" style="color : white" onclick="detectarCambios()">Aplicar</a>
+    <script src="resources/JS/administrarUsuario.js"></script>
 
 </body>
 </html>

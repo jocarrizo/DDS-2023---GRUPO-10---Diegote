@@ -2,12 +2,16 @@ package presentation.dto;
 
 public class RolComunidad {
 
-    public Long nombre;
+    public String nombre;
+
+    public long id;
     public String rol;
     public String norol;
+    public String admin;
 
-    public RolComunidad(long nombre, Boolean esAfectado) {
+    public RolComunidad(String nombre,long id, Boolean esAfectado, Boolean esAdmin) {
         this.nombre = nombre;
+        this.id = id;
         if (esAfectado) {
             this.rol = "Afectado";
             this.norol = "Observador";
@@ -15,13 +19,32 @@ public class RolComunidad {
             this.rol = "Observador";
             this.norol = "Afectado";
         }
+
+        if(esAdmin){
+            this.admin = "Si";
+        }
+        else {
+            this.admin = "No";
+        }
+
     }
-    public Long getNombre() {
+
+    public String getAdmin(){return admin;}
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(Long nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRol() {

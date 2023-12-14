@@ -1,19 +1,37 @@
-let file;
-let formData;
-function prepararArchivos(fileInputId){
+let fileContent; // Variable para almacenar el contenido del archivo
+let tipoArchivo;
+
+function prepararArchivos(fileInputId) {
     file = document.getElementById(fileInputId).files[0];
-    if (file){
-        formData = new FormData();
-        formData.append(fileInputId, file);
+    if (file) {
+        // Crear un lector de archivos
+        let reader = new FileReader();
+
+        // Leer el contenido del archivo cuando esté listo
+        reader.onload = function (e) {
+            fileContent = e.target.result; // Almacenar el contenido del archivo
+            tipoArchivo = fileInputId;
+        };
+
+        // Leer el archivo como texto
+        reader.readAsText(file);
     }
 }
 
 function enviarArchivos() {
-    if (file) {
+    if (fileContent) {
+        // Crear un objeto con la clave 'data' y el valor del contenido del archivo
+        let requestBody = {
+            tipo: tipoArchivo,
+            data: fileContent
+        };
 
         fetch('http://localhost:4567/cargaMasiva/cargar', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody) // Convertir el objeto a JSON
         })
             .then(response => {
                 if (response.ok) {
