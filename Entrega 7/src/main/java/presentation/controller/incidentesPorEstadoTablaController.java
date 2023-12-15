@@ -17,6 +17,7 @@ public class incidentesPorEstadoTablaController implements Handler{
 
     @Override
     public void handle(@NotNull Context ctx) throws Exception{
+
         String hql_incidentes = "SELECT NEW presentation.dto.IncidentesView(i.id_incidente,i.observaciones,i.apertura,i.cierre, i.abierto) FROM Incidente i where i.comunidad.id_comunidad = :x";
 
         String comunidadIncidenteCookie = ctx.cookie("COMUNIDAD_INCIDENTE");

@@ -66,7 +66,7 @@ public class Application {
 
 
         app.get("/cargaMasivaLiviano", ctx ->{
-           ctx.redirect("/cargaMasiva.html");
+           ctx.redirect("/cargaMasivaLiviano.html");
         });
         app.post("/cargaMasivaLiviano/cargar", new CargaMasivaHandler());
 
@@ -86,7 +86,7 @@ public class Application {
         app.get("/incidentesLiviano/tabla", new incidentesPorEstadoTablaController());
 
 
-        app.get("/rankingsLiviano", new RankingsController()); //PONELE QUE ESTA (HAY QUE HACER LA PRUEBA CON DB)
+        app.get("/rankingsLiviano", new RankingsController());
 
         app.post("/api/login", new LoginHandler());
 
@@ -116,61 +116,3 @@ public class Application {
 
 
 }
-/*
- INSERT INTO `prueba_api`.`perfil`
-        (`id_perfil`,
-        `confianza`,
-        `puntaje`)
-        VALUES
-        (1,
-        'ConfiableNivel1',
-        6.0),
-        (4,
-        'NoConfiable',
-        2.0),
-        (6,
-        'ConfiableNivel2',
-        9.0);
-
-INSERT INTO `prueba_api`.`comunidad`
-        (`id_comunidad`,
-        `confianza`,
-        `puntaje`)
-        VALUES
-        (5,
-        'ConfiableNivel1',
-        5.0),
-        (2,
-        'ConfiableNivel2',
-        5.0),
-        (3,
-        'NoConfiable',
-        5.0);
-
-
-INSERT INTO `prueba_api`.`comunidad_x_perfil` (`comunidad_id`, `perfil_id`)
-SELECT DISTINCT id_comunidad, id_perfil
-FROM (
-	SELECT id_comunidad , id_perfil
-	FROM comunidad
-	CROSS JOIN perfil
-	WHERE (id_comunidad, id_perfil) NOT IN (
-		SELECT comunidad_id, perfil_id
-		FROM `comunidad_x_perfil`
-	)
-	ORDER BY RAND()
-	LIMIT 1
-) AS tmp;
-
-INSERT INTO `prueba_api`.`incidente`
-	(`id_incidente`, `apertura`, `cierre`, `observaciones`, `id_perfil_apertura`, `id_perfil_cierre`)
-VALUES
-	(ROUND(RAND() * 99 + 1), -- id_incidente aleatorio entre 1 y 100
-	 NOW() - INTERVAL FLOOR(RAND() * 7) DAY, -- Fecha de apertura aleatoria en los últimos 30 días
-	 NOW() - INTERVAL FLOOR(RAND() * 2) DAY, -- Fecha de cierre aleatoria en los últimos 10 días
-	 'Observaciones aleatorias', -- Observaciones fijas o aleatorias según lo desees
-	 FLOOR(RAND() * 5 + 1), -- id_perfil_apertura aleatorio entre 1 y 5
-	 FLOOR(RAND() * 5 + 1) -- id_perfil_cierre aleatorio entre 1 y 5
-	);
-
-*/

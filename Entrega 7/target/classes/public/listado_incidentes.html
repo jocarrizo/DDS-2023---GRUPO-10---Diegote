@@ -4,13 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Incidentes</title>
-    <link rel="stylesheet" href="/resources/CSS/styles.css">
+    <link rel="stylesheet" href="resources/CSS/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<form class="incident-form" id="aperturaIncidenteForm">
-<body>
-    <yus-html src="/navbar.html"></yus-html>
-    <h2>Listado de Incidentes Abiertos</h2>
+
+<body class="bodyAdmLiviano">
+    <form class="incident-form" id="aperturaIncidenteForm">
+<!--    NAVBAR      -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+    <a class="navbar-brand" href="http://localhost:4567/home.html">Diegote TPA</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropDown" aria-controls="navbarNavDropDown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropDown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:4567/listado_incidentes.html">Listado de Incidentes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:4567/apertura_incidente.html">Incidentes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:4567/carga_datos.html">Carga masiva de Datos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:4567/administracion_usuario.html">Administración de Usuario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:4567/ranking_incidentes.html">Ranking de Incidentes</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Perfiles
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="navbar">
+                    <a v-for="perfil in perfiles" :key="perfil.idPerfil" class="dropdown-item" @click="guardarPerfilSeleccionado(perfil)">
+                        {{ perfil.nombrePerfil }}
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!--        LISTADO DE INCIDENTES        -->
+    <h1 class="h1ListIncid">Listado de Incidentes Abiertos</h1>
 
     <table class ="table">
         <thead class = "bg-danger" style="color: white;" >
@@ -32,8 +71,19 @@
             <!-- Puedes repetir estas filas para mostrar más incidentes -->
         </tbody>
     </table>
-    <script src="/resources/JS/script.js"></script>
-</body>
+
+<!--    SCRIPTS     -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>          <!--    VUE JS 2    -->
+<script src="resources/JS/script.js"></script>
+
+<!--    NAVBAR      -->
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
 </form>
+</body>
+
 </html>
 
