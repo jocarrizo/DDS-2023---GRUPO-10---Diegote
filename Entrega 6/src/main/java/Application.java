@@ -1,10 +1,12 @@
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import io.javalin.Javalin;
 import io.javalin.openapi.plugin.OpenApiConfiguration;
 import io.javalin.openapi.plugin.OpenApiPlugin;
 import io.javalin.openapi.plugin.swagger.SwaggerConfiguration;
 import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
-import org.quartz.*;
-
+import org.quartz.SchedulerException;
 import persistance.Programador;
 import presentation.GET.*;
 import presentation.POST.LoginHandler;
@@ -12,10 +14,12 @@ import presentation.POST.PostAbrirIncidenteHandler;
 import presentation.POST.PostCerrarIncidenteHandler;
 import presentation.POST.cambiarRolComunidadHandler;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class Application {
 
     public static void main(String[] args) throws SchedulerException {
-
         Javalin app = Javalin.create(config -> {
                     config.plugins.register(new OpenApiPlugin(new OpenApiConfiguration()));
                     config.plugins.register(new SwaggerPlugin(new SwaggerConfiguration()));

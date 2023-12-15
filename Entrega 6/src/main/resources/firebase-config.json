@@ -1,0 +1,8 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyA8u8WISqzj9i2e4_tpvCAWmlSK2_I0fq4",
+  authDomain: "tp-grupo10-diegote.firebaseapp.com",
+  projectId: "tp-grupo10-diegote",
+  storageBucket: "tp-grupo10-diegote.appspot.com",
+  messagingSenderId: "1048006448173",
+  appId: "1:1048006448173:web:c0f7dc5b3897dad22094a4"
+};

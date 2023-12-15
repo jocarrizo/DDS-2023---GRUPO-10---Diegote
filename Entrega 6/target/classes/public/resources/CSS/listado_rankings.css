@@ -1,0 +1,27 @@
+/* resources/CSS/custom-style.css */
+body {
+    background-color: #343a40; /* Fondo oscuro */
+    color: #dc3545; /* Texto rojo oscuro */
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #dc3545; /* Color del texto del enlace en la barra de navegación */
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-color: #dc3545; /* Color del icono del botón de la barra de navegación */
+}
+
+.ranking-container,
+.ranking-details {
+    border: 1px solid #dc3545; /* Borde rojo oscuro */
+}
+
+.list-group-item {
+    background-color: #343a40; /* Fondo oscuro para los elementos de la lista */
+    border-color: #dc3545; /* Borde rojo oscuro para los elementos de la lista */
+}
+
+.list-group-item:hover {
+    background-color: #dc3545;
+} /* Fondo rojo oscuro al pasar el
