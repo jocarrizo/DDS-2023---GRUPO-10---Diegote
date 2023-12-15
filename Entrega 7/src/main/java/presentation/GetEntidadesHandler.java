@@ -25,7 +25,7 @@ public class GetEntidadesHandler implements Handler {
 
         }catch(Exception e){
             System.out.println(e.getMessage());
-            context.status(500);//TODO: VER ERROR CORRECTO
+            context.status(500);
             return;
         }
 

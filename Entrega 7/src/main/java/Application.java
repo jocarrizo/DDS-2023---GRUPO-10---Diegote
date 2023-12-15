@@ -65,15 +65,7 @@ public class Application {
         app.get("api/Servicios/{id}",new GetServiciosPorEstablecimiento());
 
 
-        app.get("/cargaMasivaLiviano", ctx ->{
-           ctx.redirect("/cargaMasivaLiviano.html");
-        });
         app.post("/cargaMasivaLiviano/cargar", new CargaMasivaHandler());
-
-
-        app.get("/administrarUsuarioLiviano", new administrarUsuarioController());
-        app.post("/administrarUsuarioLivianoAplicar", new administrarUsuarioHandler()); //Ni yo me acuerdo que hice aca
-
 
 
         app.post("/cookies/incidentesLiviano/comunidad", ctx -> {
@@ -85,6 +77,9 @@ public class Application {
         app.get("/incidentesLiviano", new incidentesPorEstadoController());
         app.get("/incidentesLiviano/tabla", new incidentesPorEstadoTablaController());
 
+
+        app.get("/administrarUsuarioLiviano", new administrarUsuarioController());
+        app.post("/administrarUsuarioLivianoAplicar", new administrarUsuarioHandler()); //Ni yo me acuerdo que hice aca
 
         app.get("/rankingsLiviano", new RankingsController());
 
