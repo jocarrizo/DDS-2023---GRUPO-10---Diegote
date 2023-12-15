@@ -1,6 +1,7 @@
 package presentation.controller;
 
 import domain.Rankings.Informe;
+import domain.Rankings.PosicionRanking;
 import domain.Rankings.Ranking;
 
 import domain.Rankings.Tipo_Ranking;
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,10 @@ public class RankingsController implements Handler {
                 new Exception("No hay informes");
             }
             List<Ranking> rankings = informes.get(0).getRanking();
+            for(Ranking ranking : rankings){
+
+                ranking.getRanking().sort(Comparator.reverseOrder());
+            }
 
             BDUtils.commit(em);
             ctx.status(200).result("Ultimo informe renderizado");

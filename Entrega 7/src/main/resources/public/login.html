@@ -11,17 +11,13 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
 </head>
-<body>
+<body class="bodyLogIn">
     <div id= "appVue" class="content-container" >
-        <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Titulo</h1>
-            <p class="lead text-body-secondary">Ejemplo de texto simple, descripcion del proyecto</p>
-        </div>
         <div class="login-form">
-            <h2 class="h3 mb-3 fw-normal">Iniciar Sesión</h2>
+            <h1>Iniciar Sesión</h1>
             <input placeholder="Nombre de Usuario" v-model="username"  id="username" required>
             <input placeholder="Contraseña" v-model="password" type="password" id="password" required>
-            <a class="mt-1 w-100 py-2 btn btn-danger" v-on:click="login">Iniciar Sesión</a>
+            <a class="mt-1 w-100 py-2 btn btn-danger" id="botonLogIn" v-on:click="login">Iniciar Sesión</a>
             <p v-if="mensaje" class="error-message">{{ mensaje }}</p>
         </div>
     </div>
