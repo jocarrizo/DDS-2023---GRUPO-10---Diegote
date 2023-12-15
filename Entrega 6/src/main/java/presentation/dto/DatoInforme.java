@@ -19,6 +19,10 @@ public class DatoInforme {
 
     private List<DatoRanking> listadoRankings ;
 
+    public DatoInforme(List<DatoRanking> listadoRankings) {
+        this.listadoRankings = listadoRankings;
+    }
+
     public DatoInforme() {
         this.listadoRankings = new ArrayList<>();
         EntityManager em = BDUtils.getEntityManager();
@@ -30,7 +34,7 @@ public class DatoInforme {
             listadoRankings.add(new DatoRanking(ranking.getTipo_ranking(),ranking
                     .getRanking()
                     .stream()
-                    .sorted(Comparator.comparing(PosicionRanking::getPuntaje))
+                    .sorted(Comparator.comparing(PosicionRanking::getPuntaje).reversed())
                     .collect(Collectors.toList())));
 
         }

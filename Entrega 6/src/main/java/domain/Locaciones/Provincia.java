@@ -15,7 +15,6 @@ public class Provincia {
     @Column(name="NOMBRE")
     private String nombre;
 
-
     @Column(name="LATITUD")
     private double centroide_lat;
     @Column(name="LONGITUD")

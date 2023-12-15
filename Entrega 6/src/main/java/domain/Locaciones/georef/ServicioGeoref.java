@@ -46,6 +46,7 @@ public class ServicioGeoref {
         georefService georefService = this.retrofit.create(georefService.class);
         Call<ListadoDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(provincia.getNombre(), "id,nombre,nombre_completo,provincia,centroide,categoria", maximaCantidadRegistrosDefault);
         Response<ListadoDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
+
         return responseListadoDeDepartamentos.body();
     }
 }

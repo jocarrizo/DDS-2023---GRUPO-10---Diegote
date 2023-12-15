@@ -36,7 +36,6 @@ public class Entidad {
     @OneToMany(mappedBy = "entidad")
     private List<Incidente> incidentes;
 
-    //TODO
     @Transient
     private List<Perfil> suscripciones;
 
@@ -48,6 +47,5 @@ public class Entidad {
     public void agregar_incidente_oficial(Incidente incidente){};
     public void agregar_suscriptor(Perfil perfil){};
     public void remover_suscriptor(Perfil perfil){};
-
 }
 

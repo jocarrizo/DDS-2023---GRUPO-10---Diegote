@@ -25,7 +25,7 @@ public class Departamento {
     private String categoria;
 
     @ManyToOne
-    @JoinColumn(name = "provincia_id", insertable = false, updatable = false)
+    @JoinColumn(name = "id")
     private Provincia provincia;
 
 

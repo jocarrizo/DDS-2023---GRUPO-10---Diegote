@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.EntityManager;
+import java.util.Arrays;
 import java.util.List;
 @Getter
 @Setter
@@ -39,11 +40,22 @@ public class ListadoMunicipio {
     }
 
     public void persistir(){
+        //HAY PROVINCIAS QUE NO TIENEN MUNICIPIOS, SE CORTA EJECUCION
+        if(municipios.isEmpty()) return;
+
         EntityManager em = BDUtils.getEntityManager();
         BDUtils.comenzarTransaccion(em);
 
+        Provincia prov = em.createQuery("SELECT p FROM Provincia p where p.id = ?1",Provincia.class)
+                .setParameter(1,Long.parseLong(municipios.get(0).getProvincia_id()))
+                .getSingleResult();
+
+
         try {
-            for (Municipio municipio : municipios) em.persist(municipio);
+            for (Municipio municipio : municipios) {
+                municipio.setProvincia(prov);
+                em.persist(municipio);
+            }
         } catch (Exception e){
             System.out.println(e.getMessage());
             BDUtils.rollback(em);

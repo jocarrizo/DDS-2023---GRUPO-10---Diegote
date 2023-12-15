@@ -31,11 +31,19 @@ public class ListadoDepartamentos {
 
 
     public void persistir(){
+        if(departamentos.isEmpty()) return;
+
         EntityManager em = BDUtils.getEntityManager();
         BDUtils.comenzarTransaccion(em);
+        Provincia prov = em.createQuery("SELECT p FROM Provincia p where p.id = ?1",Provincia.class)
+                .setParameter(1,Long.parseLong(departamentos.get(0).getProvincia_id()))
+                .getSingleResult();
 
         try {
-            for (Departamento departamento : departamentos) em.persist(departamento);
+            for (Departamento departamento : departamentos) {
+                departamento.setProvincia(prov);
+                em.persist(departamento);
+            }
         } catch (Exception e){
             System.out.println(e.getMessage());
             BDUtils.rollback(em);

@@ -49,30 +49,28 @@
 
 <!--        RANKING        -->
 
-<!-- En el cuerpo del HTML, después de la sección de NAVBAR -->
-<div id="app">
-    <div v-for="ranking in rankings" :key="ranking.tipoRanking">
-        <h2>{{ ranking.tipoRanking }}</h2>
-        <ul>
-            <li v-for="entidad in ranking.listadoEntidades" :key="entidad.entidadN">
-                {{ entidad.entidadN }} - Puntaje: {{ entidad.puntajeN }}
+<div id="app" class="container mt-4">
+    <h2 class="mb-4">Listado de Rankings</h2>
+
+    <div v-for="ranking in rankings.listadoRankings" :key="ranking.tipo_ranking" class="ranking-container">
+        <h3>{{ ranking.tipo_ranking }}</h3>
+        <ul class="list-group">
+            <li v-for="entidad in ranking.entidades" :key="entidad.entidadN" class="list-group-item">
+                {{ entidad.nombreEntidad }} - Puntaje: {{ entidad.puntaje }}
             </li>
         </ul>
-        <button @click="showRankingDetails(ranking)">Ver Detalles</button>
     </div>
 
-    <!-- Aquí puedes agregar un área para mostrar los detalles del ranking seleccionado -->
-    <div v-if="selectedRanking">
-        <h3>{{ selectedRanking.tipoRanking }}</h3>
-        <ul>
-            <li v-for="entidad in selectedRanking.listadoEntidades" :key="entidad.entidadN">
-                {{ entidad.entidadN }} - Puntaje: {{ entidad.puntajeN }}
+    <!-- Detalles del Ranking (si es necesario) -->
+    <div v-if="selectedRanking" class="ranking-details mt-4">
+        <h3>{{ selectedRanking.tipo_ranking }}</h3>
+        <ul class="list-group">
+            <li v-for="entidad in selectedRanking.entidades" :key="entidad.nombreEntidad" class="list-group-item">
+                {{ entidad.nombreEntidad }} - Puntaje: {{ entidad.puntaje }}
             </li>
         </ul>
-        <button @click="selectedRanking = null">Cerrar Detalles</button>
     </div>
 </div>
-
 
 <!--    SCRIPTS     -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>          <!--    VUE JS 2    -->
@@ -88,16 +86,14 @@
     new Vue({
         el: '#app',
         data: {
-            rankings: [], // Aquí se almacenarán los rankings obtenidos de la API
-            selectedRanking: null // El ranking seleccionado por el usuario
+            rankings: [],
+            selectedRanking: null
         },
         mounted() {
-            this.fetchRankings(); // Al cargar la página, obtén la lista de rankings
+            this.fetchRankings();
         },
         methods: {
             fetchRankings() {
-                // Realizar la solicitud a la API para obtener la lista de rankings
-                // Puedes usar fetch, axios, u otra librería para hacer la solicitud
                 fetch('http://localhost:4567/rankings')
                     .then(response => response.json())
                     .then(data => {

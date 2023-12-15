@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 class ServicioGeorefTest {
@@ -40,7 +41,7 @@ class ServicioGeorefTest {
             municipios_x_provincia.add(lm);
         }
 
-        // PERSISTENCIA
+        provincias.persistir();
 
         for(Provincia provincia : provincias.getProvincias()) {
             ListadoDepartamentos ld = sg.listadoDepartamentosProvincia(provincia);
@@ -49,9 +50,9 @@ class ServicioGeorefTest {
 
         for(Provincia provincia : provincias.getProvincias()) {
             ListadoMunicipio lm = sg.listadoMunicipiosProvincia(provincia);
-            lm.persistir();
+            if (!Objects.equals(provincia.getNombre(), "Ciudad Autónoma de Buenos Aires")) lm.persistir();
         }
 
-        provincias.persistir();
+
     }
 }

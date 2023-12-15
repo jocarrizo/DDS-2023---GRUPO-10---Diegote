@@ -31,7 +31,7 @@ public class Ranking {
     @Column(name = "DESCRIPCION")
     private String descripcion;
 
-    @OneToMany(mappedBy ="ranking_asoc" )
+    @OneToMany(fetch = FetchType.LAZY,mappedBy ="ranking_asoc" )
     private List<PosicionRanking> ranking = new ArrayList<>();
 
     public Ranking() {}
