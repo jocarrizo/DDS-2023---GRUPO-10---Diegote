@@ -2,6 +2,7 @@ package presentation;
 
 import com.opencsv.CSVReader;
 
+import domain.Entidades.Entidad;
 import example.hibernate.utils.BDUtils;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
@@ -52,8 +53,9 @@ public class CargaMasivaHandler implements Handler {
             for (int i = 0; i < csvData.size(); i++) {
                 String[] row = csvData.get(i);
 
-                if (row.length == 4) {
-                    String sql = "INSERT INTO Entidad (id_entidad, nombre, tipo, id_localizacion) VALUES (?, ?, ?, ?)";
+
+                if (row.length == 5) {
+                    String sql = "INSERT INTO Entidad (id_entidad, nombre, tipo, id_localizacion, id_entidad_prestadora) VALUES (?, ?, ?, ?, ?)";
 
                     Query query = em.createNativeQuery(sql);
 
@@ -61,6 +63,7 @@ public class CargaMasivaHandler implements Handler {
                     query.setParameter(2, row[1]);
                     query.setParameter(3, row[2]);
                     query.setParameter(4, Long.valueOf(row[3]));
+                    query.setParameter(5, Long.valueOf(row[4]));
                     query.executeUpdate();
                 }else{
                     response = response + i + " ";

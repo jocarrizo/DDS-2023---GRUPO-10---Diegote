@@ -41,6 +41,7 @@ public class incidentesPorEstadoController implements Handler{
         } catch (Exception e) {
             BDUtils.rollback(em);
             e.printStackTrace();
+            ctx.status(400).result("Hubo un error en la carga de la página");
         } finally {
             em.close();
         }

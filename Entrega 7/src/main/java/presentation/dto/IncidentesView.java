@@ -1,10 +1,13 @@
 package presentation.dto;
 
 import com.github.javafaker.Bool;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
 
+@Getter @Setter
 public class IncidentesView {
     Long idIncidente;
     String observaciones;

@@ -11,10 +11,10 @@ function detectarCambios() {
             cambios.push(comunidadId); // Agregar el ID de la comunidad a la lista de cambios
         }
     });
-
+    console.log(cambios);
     // Si hay cambios, enviar la lista de IDs al servidor mediante una solicitud POST
     if (cambios.length > 0) {
-        fetch('http://localhost:4567/administrarUsuarioAplicar', {
+        fetch('http://localhost:4567/administrarUsuarioLivianoAplicar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

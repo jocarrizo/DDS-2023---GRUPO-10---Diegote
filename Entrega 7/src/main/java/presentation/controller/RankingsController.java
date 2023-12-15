@@ -26,17 +26,8 @@ public class RankingsController implements Handler {
         EntityManager em = BDUtils.getEntityManager();
         BDUtils.comenzarTransaccion(em);
 
-        //Map<String, List<Ranking>> rankingsMap = new HashMap<>();
 
         try {
-            /*
-            for (Tipo_Ranking tipo : Tipo_Ranking.values()) {
-                Query query = em.createQuery(hql, Ranking.class);
-                query.setParameter("tipo", tipo);
-                List<Ranking> resultados = query.getResultList();
-                rankingsMap.put(tipo.name(), resultados);
-            }*/
-
 
             List<Informe> informes = em.createQuery("SELECT i FROM Informe i order by i.fecha_creacion DESC", Informe.class).getResultList();
 

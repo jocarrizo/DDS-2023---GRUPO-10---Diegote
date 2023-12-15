@@ -39,6 +39,7 @@ public class Entidad {
     @Transient
     private List<Perfil> suscripciones;
 
+
     public void agregar_incidente(Incidente incidente){};
     public void agregar_incidente_oficial(Incidente incidente){};
     public void agregar_suscriptor(Perfil perfil){};

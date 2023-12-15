@@ -49,7 +49,6 @@ public class incidentesPorEstadoTablaController implements Handler{
             model.put("incidente", incidentes);
             ctx.render("incidentesLivianoTabla.hbs", model);
 
-            ctx.removeCookie("COMUNIDAD_INCIDENTE");
             ctx.removeCookie("FILTRO_INCIDENTE");
 
 
