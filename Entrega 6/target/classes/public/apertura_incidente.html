@@ -8,60 +8,60 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
-<body>
+<body class="bodyApertIncit">
 
 <!--    NAVBAR-->
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
-        <a class="navbar-brand" href="http://localhost:4567/home.html">Diegote TPA</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropDown" aria-controls="navbarNavDropDown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropDown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:4567/listado_incidentes.html">Listado de Incidentes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:4567/apertura_incidente.html">Incidentes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:4567/carga_datos.html">Carga masiva de Datos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:4567/administracion_usuarios.html">Administración de Usuario</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:4567/listado_ranking.html">Ranking de Incidentes</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Perfiles
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+    <a class="navbar-brand" href="http://localhost:4567/home.html">Diegote TPA</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropDown" aria-controls="navbarNavDropDown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropDown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:4567/listado_incidentes.html">Listado de Incidentes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:4567/apertura_incidente.html">Incidentes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:4567/carga_datos.html">Carga masiva de Datos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:4567/administracion_usuario.html">Administración de Usuario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:4567/ranking_incidentes.html">Ranking de Incidentes</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Perfiles
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="navbar">
+                    <a v-for="perfil in perfiles" :key="perfil.idPerfil" class="dropdown-item" @click="guardarPerfilSeleccionado(perfil)">
+                        {{ perfil.nombrePerfil }}
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="navbar">
-                        <a v-for="perfil in perfiles" :key="perfil.idPerfil" class="dropdown-item" @click="guardarPerfilSeleccionado(perfil)">
-                            {{ perfil.nombrePerfil }}
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 
 <!--    FORMULARIO-->
 
 <div class="btn-group" role="group" aria-label="Basic example">
-    <a class="btn btn-danger btn-sm" href="apertura_incidente.html">
-        <p class="lead">Apertura de incidentes</p>
+    <a class="btn btn-danger btn-sm botonIncid" href="apertura_incidente.html">
+        <h4>Apertura de incidentes</h4>
     </a>
-    <a class="btn btn-outline-danger btn-sm" href="cierre_incidente.html">
-        <p class="lead">Cierre de incidentes</p>
+    <a class="btn btn-outline-danger btn-sm botonIncid" href="cierre_incidente.html">
+        <h4>Cierre de incidentes</h4>
     </a>
 </div>
 
 <form class="incident-form" id="aperturaIncidenteForm">
-    <h2 class="h3 mb-3 fw-normal">Apertura de Incidente</h2>
+    <h1 class="h1AperIncidente">Apertura de Incidente</h1>
 
 
 
@@ -104,16 +104,15 @@
     <button class="mt-1 w-100 py-2 btn btn-danger" type="button" @click="abrirIncidente">Abrir Incidente</button>
 </form>
 
-<!--    SCRIPTS     -->
-<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>          <!--    VUE JS 2    -->
-<script src="resources/JS/script.js"></script>
-<script src="resources/JS/apertura_incidente.js"></script>
-
-
 <!--    NAVBAR      -->
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<!--    SCRIPTS     -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>          <!--    VUE JS 2    -->
+<script src="resources/JS/script.js"></script>
+<script src="resources/JS/apertura_incidente.js"></script>
 
 </body>
 </html>

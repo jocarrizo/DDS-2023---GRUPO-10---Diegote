@@ -1,18 +1,162 @@
-body {
-    background-color: #f8f8f8;
-    display: flex;
-    flex-direction: column;
+/*Archivo administrarUsuarioLiviano*/
+
+.h1AdminUsuarios {
+    margin-top: 120px !important;
+    margin-bottom: 60px !important;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    margin: 0;
+    display: flex;
 }
+
+.incident-form {
+    width: 80%;
+
+}
+
+.bodyAdmLiviano {
+    background-color: #F1F0F0;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+
+}
+
+.table_centered_table {
+    /*falta centrarlo*/
+    width: 100%;
+}
+.table_centered_table tbody tr:nth-child(odd) {
+    background-color: #FFC3C3; /* Cambia el color de fondo para filas impares */
+}
+
+/* Estilo para filas pares */
+.table_centered_table tbody tr:nth-child(even) {
+    background-color: #F1F0F0; /* Cambia el color de fondo para filas pares */
+}
+
+.btn.btn-danger{
+    margin-bottom: 200px;
+}
+
+/*Archivo apertura_incidente*/
+
+.h1AperIncidente {
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.btn.btn-outline-danger.btn-sm{
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.btn.btn-danger.btn-sm{
+    height: 75px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 5px;
+    width: 150px;
+}
+
+.botonIncid{
+    height: 60px !important;
+    width: 300px !important;
+    padding: 10px;
+}
+
+.bodyApertIncit {
+    background-color: #F1F0F0;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+
+}
+
+.btn-group {
+    margin-top: 100px;
+    padding-bottom: 30px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/*Archivo cargaMasivaLiviano*/
+
+.cargaMasivaLiviano {
+    background-color: #F1F0F0;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+}
+
+.cargaMasivaLiviano{
+    margin: 200px;
+}
+
+
+/*Archivo cierre_incidente*/
+
+.bodyCierreInct {
+    background-color: #F1F0F0;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+
+}
+
+/*Archivo incidentesLiviano*/
+
+
+.h1IncidLiv{
+    margin-top: 60px;
+}
+
+#h3IncidLiv{
+    margin-left: -1125px;
+}
+
+.h1ListIncid{
+    margin-top: 120px;
+    margin-bottom: 60px
+}
+
+
+/*Log In*/
+
+.bodyLogIn{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+    margin: 200px;
+}
+
+
 
 .content-container {
     display: flex;
     justify-content: space-between;
     width: 80%;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-form {
@@ -27,9 +171,6 @@ body {
     align-items: center; /* Centra horizontalmente */
 }
 
-h2 {
-    margin-bottom: 20px;
-}
 
 input {
     width: 100%;
@@ -103,9 +244,6 @@ label {
     font-size: 18px;
 }
 
-.btn-group {
-    padding-bottom: 30px;
-}
 
 table {
     display: table;
@@ -115,4 +253,62 @@ table {
     border-spacing: 10px;
     border-color: #808080 !important;
     width: 100%;
+}
+
+
+
+/*---------------------------*/
+.divHome{
+    margin-bottom: 10px;
+    width: 100%;
+}
+.h1home{
+    background-color: #FF4848;
+    border-radius: 25px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 2%;
+    color: white;
+}
+.bodyHome{
+    background-color: #F1F0F0;
+    padding-top: 2%;
+}
+.h2home{
+    padding-top: 10px;
+    margin-left:30px;
+}
+.pHome{
+    color: gray;
+    margin-left: 30px;
+}
+
+.homeBtn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    margin-left: 95%;
+}
+
+
+.homeBtn:hover {
+    background-color: #FF4848;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+.divImparHome{
+    background-color: #F3DCDC;
+}
+
+/*---------------------------*/
+
+#h4ranking{
+    text-align: start;
 }

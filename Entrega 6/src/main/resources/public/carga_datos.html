@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="resources/CSS/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
+
+<body class="cargaMasivaLiviano">
+
 <!--    NAVBAR-->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" >
@@ -27,10 +29,10 @@
                 <a class="nav-link" href="http://localhost:4567/carga_datos.html">Carga masiva de Datos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost:4567/administracion_usuarios.html">Administración de Usuario</a>
+                <a class="nav-link" href="http://localhost:4567/administracion_usuario.html">AdministraciÃ³n de Usuario</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost:4567/listado_ranking.html">Ranking de Incidentes</a>
+                <a class="nav-link" href="http://localhost:4567/ranking_incidentes.html">Ranking de Incidentes</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,24 +48,28 @@
     </div>
 </nav>
 
+<form class="upload-form" action="http://localhost:4567/cargaMasiva/cargar" method="post" enctype="multipart/form-data">
+    <h1 class="h1CargaMasiva">Carga Masiva de Datos</h1>
+    <label class="btn btn-danger btn-sm CargaMasiva" for="EntidadescsvFile" id="entidadesBtn"><h4>Cargar Entidades</h4></label>
+    <input type="file" id="EntidadescsvFile" name="EntidadescsvFile" accept=".csv" required onchange="handleFileSelect('EntidadescsvFile', 'entidadesLabel', 'organismosLabel', 'entidadesBtn', 'organismosBtn'); prepararArchivos('EntidadescsvFile')">
+    <span id="entidadesLabel"></span>
 
-<!--        CARGAR DATOS        -->
-    <form class="upload-form">
-        <h2>Carga Masiva de Datos</h2>
-        <label class="btn btn-danger btn-sm" for="csvFile">Selecciona un archivo CSV</label>
-        <input type="file" id="csvFile" accept=".csv" required>
-        <div id="preview"></div>
-        <button class="btn btn-outline-danger btn-sm" type="submit">Cargar Datos</button>
-	</form>
+    <label class="btn btn-danger btn-sm" for="OrganismoscsvFile" id="organismosBtn"><h4>Cargar Organismos</h4></label>
+    <input type="file" id="OrganismoscsvFile" name="OrganismoscsvFile" accept=".csv" required onchange="handleFileSelect('OrganismoscsvFile', 'organismosLabel', 'entidadesLabel', 'organismosBtn', 'entidadesBtn'); prepararArchivos('OrganismoscsvFile')">
+    <span id="organismosLabel"></span>
 
-    <!--    SCRIPTS     -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>          <!--    VUE JS 2    -->
-    <script src="resources/JS/script.js"></script>
+    <div id="preview"></div>
+    <a class="btn btn-outline-danger btn-sm" type="submit" onclick="enviarArchivos()" id="submitButton" style="display: none;">Cargar Datos</a>
+</form>
 
+<!--    SCRIPTS     -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="resources/JS/script.js"></script>
 
-    <!--    NAVBAR      -->
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<!--    NAVBAR      -->
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
 </body>
 </html>
