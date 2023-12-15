@@ -28,8 +28,6 @@ public class comunidad_x_perfil {
     @Column(name="OBSERVADOR")
     private boolean esObservador = false;
 
-    @Column(name="AFECTADO")
-    private boolean esAfectado = false;
 
     public comunidad_x_perfil() {}
 
@@ -38,7 +36,6 @@ public class comunidad_x_perfil {
         this.perfil = perfil;
         this.esAdmin = esAdmin;
         this.esObservador = esObservador;
-        this.esAfectado = esAfectado;
         this.id = new comunidad_x_perfil_ID(perfil.getId_perfil(),comunidad.getId_comunidad());
     }
 
@@ -47,15 +44,12 @@ public class comunidad_x_perfil {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         comunidad_x_perfil that = (comunidad_x_perfil) o;
-        return esAdmin == that.esAdmin && esObservador == that.esObservador && esAfectado == that.esAfectado && Objects.equals(id, that.id) && Objects.equals(comunidad, that.comunidad) && Objects.equals(perfil, that.perfil);
+        return esAdmin == that.esAdmin && esObservador == that.esObservador  && Objects.equals(id, that.id) && Objects.equals(comunidad, that.comunidad) && Objects.equals(perfil, that.perfil);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, comunidad, perfil, esAdmin, esObservador, esAfectado);
+        return Objects.hash(id, comunidad, perfil, esAdmin, esObservador);
     }
-
-
-    //TODO: ver el tema de agregar el atributo de si es observador
 
 }
